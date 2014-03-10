@@ -22,6 +22,20 @@ extensions:
     - PhpSpec\Laravel\Extension\LaravelExtension
 ```
 
+##Configuration
+
+###Testing environment
+
+By default, the extension bootstraps Laravel in the `testing` environment. You
+can change this to production (or whatever you like) by setting:
+
+```yaml
+laravel_extension:
+    testing_environment: 'production'
+```
+
+in your `phpspec.yml`.
+
 ##Usage
 
 The base classes provided by the extension mimic most of the behaviour found at
