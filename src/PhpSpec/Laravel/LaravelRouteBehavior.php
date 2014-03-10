@@ -12,7 +12,7 @@ use PhpSpec\Laravel\Util\Laravel;
  * your routes in the context of your application, rather than unit testing
  * controller methods directly.
  */
-class LaravelRouteBehaviour implements SpecificationInterface, LaravelBehaviorInterface {
+class LaravelRouteBehavior implements SpecificationInterface, LaravelBehaviorInterface {
 
     /**
      * Laravel wrapper.
