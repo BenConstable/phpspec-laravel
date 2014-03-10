@@ -135,7 +135,7 @@ class Laravel {
 
         $testEnvironment = $this->env;
 
-        return $this->bootstrapPath . '/start.php';
+        return require $this->bootstrapPath . '/start.php';
     }
 
     /**
