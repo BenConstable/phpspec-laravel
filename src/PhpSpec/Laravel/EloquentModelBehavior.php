@@ -16,7 +16,7 @@ class EloquentModelBehavior extends LaravelObjectBehavior {
     public function getMatchers()
     {
         return array(
-            new \PhpSpec\Laravel\Matcher\Eloquent\DefineRelationshipMatcher
+            new \PhpSpec\Laravel\Matcher\Eloquent\DefineRelationshipMatcher($this->presenter)
         );
     }
 

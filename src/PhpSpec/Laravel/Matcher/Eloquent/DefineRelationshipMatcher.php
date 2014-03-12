@@ -1,5 +1,6 @@
 <?php namespace PhpSpec\Laravel\Matcher\Eloquent;
 
+use PhpSpec\Formatter\Presenter\PresenterInterface;
 use PhpSpec\Matcher\BasicMatcher;
 use PhpSpec\Exception\Example\FailureException;
 
@@ -12,6 +13,22 @@ use PhpSpec\Exception\Example\FailureException;
  *
  */
 class DefineRelationshipMatcher extends BasicMatcher {
+
+    /**
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
+     */
+    protected $presenter;
+
+    /**
+     * Constructor.
+     *
+     * @param \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
+     * @return void
+     */
+    public function __construct(PresenterInterface $presenter)
+    {
+        $this->presenter = $presenter;
+    }
 
     /**
      * Checks if matcher supports provided subject and matcher name.
@@ -61,9 +78,10 @@ class DefineRelationshipMatcher extends BasicMatcher {
     protected function getFailureException($name, $subject, array $arguments)
     {
         return new FailureException(sprintf(
-            'Expected %s relationship on %s',
-            $arguments[0],
-            $arguments[1]
+            'Expected %s relationship on %s but got %s',
+            $this->presenter->presentString($arguments[0]),
+            $this->presenter->presentString($arguments[1]),
+            $this->presenter->presentValue($subject)
         ));
     }
 
@@ -77,9 +95,10 @@ class DefineRelationshipMatcher extends BasicMatcher {
     protected function getNegativeFailureException($name, $subject, array $arguments)
     {
         return new FailureException(sprintf(
-            'Did not expect %s relationship on %s',
-            $arguments[0],
-            $arguments[1]
+            'Did not expect %s relationship on %s but got %s',
+            $this->presenter->presentString($arguments[0]),
+            $this->presenter->presentString($arguments[1]),
+            $this->presenter->presentValue($subject)
         ));
     }
 }

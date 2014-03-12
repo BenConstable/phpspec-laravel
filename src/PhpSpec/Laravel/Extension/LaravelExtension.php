@@ -5,6 +5,7 @@ use PhpSpec\ServiceContainer;
 
 use PhpSpec\Laravel\Listener\LaravelListener;
 use PhpSpec\Laravel\Runner\Maintainer\LaravelMaintainer;
+use PhpSpec\Laravel\Runner\Maintainer\PresenterMaintainer;
 use PhpSpec\Laravel\Util\Laravel;
 
 /**
@@ -43,7 +44,22 @@ class LaravelExtension implements ExtensionInterface {
             'runner.maintainers.laravel',
             function ($c)
             {
-                return new LaravelMaintainer($c->get('laravel'));
+                return new LaravelMaintainer(
+                    $c->get('laravel')
+                );
+            }
+        );
+
+        // Bootstrap maintainer to bind app Presenter to specs, so it
+        // can be passed to custom matchers
+
+        $container->setShared(
+            'runner.maintainers.presenter',
+            function ($c)
+            {
+                return new PresenterMaintainer(
+                    $c->get('formatter.presenter')
+                );
             }
         );
 
