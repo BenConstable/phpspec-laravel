@@ -1,6 +1,7 @@
 <?php namespace PhpSpec\Laravel;
 
 use PhpSpec\ObjectBehavior;
+use PhpSpec\Wrapper\Subject;
 use PhpSpec\Laravel\Util\Laravel;
 
 /**
@@ -26,5 +27,21 @@ class LaravelObjectBehavior extends ObjectBehavior implements LaravelBehaviorInt
     {
         $this->laravel = $laravel;
         return $this;
+    }
+
+    /**
+     * Force object initialization without serialization.
+     *
+     * @param Subject $subject
+     */
+    public function setSpecificationSubject(Subject $subject)
+    {
+        parent::setSpecificationSubject($subject);
+
+        // Calling this forces the PhpSpec\Util\Instantiator class to be
+        // avoided, which breaks when instantiating classes that have closures
+        // as properties
+
+        $this->getWrappedObject();
     }
 }

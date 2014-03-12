@@ -92,6 +92,6 @@ class LaravelMaintainer implements MaintainerInterface {
      */
     public function getPriority()
     {
-        return 1;
+        return 1000;
     }
 }
