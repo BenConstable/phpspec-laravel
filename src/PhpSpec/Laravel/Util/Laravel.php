@@ -1,7 +1,7 @@
 <?php namespace PhpSpec\Laravel\Util;
 
-use Illuminate\Foundation\Testing\Client;
-use Illuminate\Auth\UserInterface;
+use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Events\Dispatcher;
 
 /**
  * This class implements most of the core functionality found in the:
@@ -62,6 +62,27 @@ class Laravel {
         $this->app->setRequestForConsoleEnvironment();
 
         $this->app->boot();
+
+        // We boot Eloquent separately again to prevent errors with the
+        // PhpSpec Instantiator being unable to serilalize the Closures in
+        // the application config
+
+        $capsule          = new Capsule;
+        $capsuleContainer = $capsule->getContainer();
+        $eventDispatcher  = new Dispatcher($capsuleContainer);
+
+        $capsuleContainer['config']['database.default'] = $this->app['config']->get('database.default');
+
+        $capsule->setContainer($capsuleContainer);
+        $capsule->setEventDispatcher($eventDispatcher);
+
+        // Add connections from Laravel application
+
+        foreach ($this->app['config']->get('database.connections') as $name => $c) {
+            $capsule->addConnection($c, $name);
+        }
+
+        $capsule->bootEloquent();
     }
 
     /**

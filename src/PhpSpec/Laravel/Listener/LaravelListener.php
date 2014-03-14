@@ -4,7 +4,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use PhpSpec\Event\SpecificationEvent;
 
 use PhpSpec\Laravel\Util\Laravel;
-
 /**
  * This listener is used to setup the Laravel application for each spec.
  */
