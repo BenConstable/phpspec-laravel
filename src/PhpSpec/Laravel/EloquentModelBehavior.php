@@ -9,6 +9,29 @@ use PhpSpec\Exception\Fracture;
 class EloquentModelBehavior extends LaravelObjectBehavior {
 
     /**
+     * Wrapper to prevent unwanted overloading.
+     *
+     * @param  string $className
+     * @param  array  $arguments
+     * @return void
+     */
+    public function beAnInstanceOf($className, array $arguments = array())
+    {
+        $this->object->beAnInstanceOf($className, $arguments);
+    }
+
+    /**
+     * Wrapper to prevent unwanted overloading.
+     *
+     * @param mixed $args
+     * @return void
+     */
+    public function beConstructedWith()
+    {
+        call_user_func_array(array($this->object, 'beConstructedWith'), func_get_args());
+    }
+
+    /**
      * Register custom Eloquent matchers.
      *
      * @return array
@@ -33,6 +56,8 @@ class EloquentModelBehavior extends LaravelObjectBehavior {
      */
     public function __call($method, array $arguments = array())
     {
+        $this->getWrappedObject();
+
         try {
             return parent::__call($method, $arguments);
         } catch (\BadMethodCallException $e) {

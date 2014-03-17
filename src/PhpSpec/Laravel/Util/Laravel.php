@@ -1,8 +1,5 @@
 <?php namespace PhpSpec\Laravel\Util;
 
-use Illuminate\Database\Capsule\Manager as Capsule;
-use Illuminate\Events\Dispatcher;
-
 /**
  * This class implements most of the core functionality found in the:
  *
@@ -72,40 +69,8 @@ class Laravel {
 
         $this->app->boot();
 
-        // We boot Eloquent separately again to prevent errors with the
-        // PhpSpec Instantiator being unable to serilalize the Closures in
-        // the application config
-
-        $capsule          = new Capsule;
-        $capsuleContainer = $capsule->getContainer();
-        $eventDispatcher  = new Dispatcher($capsuleContainer);
-
-        $capsuleContainer['config']['database.default'] = $this->app['config']->get('database.default');
-
-        $capsule->setContainer($capsuleContainer);
-        $capsule->setEventDispatcher($eventDispatcher);
-
-        foreach ($this->app['config']->get('database.connections') as $name => $c) {
-            $capsule->addConnection($c, $name);
-        }
-
-        $capsule->bootEloquent();
-
-        $this->app->bindShared('db', function($app) use ($capsule)
-        {
-            return $capsule->getDatabaseManager();
-        });
-
-        // Migrate the database if required
-
         if ($this->migrateDatabase) {
             $this->app['artisan']->call('migrate');
-
-            // We have to override these fields on the connection to stop
-            // Closure Instantiator errors
-
-            $this->app['db']->connection()->setCacheManager($this->app['cache']);
-            $this->app['db']->connection()->setPaginator($this->app['paginator']);
         }
     }
 
