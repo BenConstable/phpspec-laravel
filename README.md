@@ -64,6 +64,20 @@ laravel_extension:
 
 in your `phpspec.yml`.
 
+###Database migration
+
+If you'd like your database migrations to be run before each spec, you can
+specify:
+
+```yaml
+laravel_extension:
+    migrate_db: true
+```
+
+This is useful if you'd like to make use of a SQLite in-memory database for any
+Eloquent model tests (see [here](http://code.tutsplus.com/tutorials/testing-like-a-boss-in-laravel-models--net-30087)
+for how you'd set this up).
+
 ##Usage
 
 ###General testing

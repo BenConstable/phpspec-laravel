@@ -34,18 +34,27 @@ class Laravel {
     private $bootstrapPath;
 
     /**
+     * Whether or not to migrate the database after booting Laravel.
+     *
+     * @var boolean
+     */
+    private $migrateDatabase;
+
+    /**
      * Constructor.
      *
      * Setup application on construct.
      *
      * @param string $env           Laravel testing environment. 'testing' by default
      * @param string $bootstrapPath Path to the Laravel bootstrap dir
+     * @param boolean                       $migrateDatabase
      * @return void
      */
-    public function __construct($env, $bootstrapPath)
+    public function __construct($env, $bootstrapPath, $migrateDatabase = false)
     {
         $this->env = $env ?: 'testing';
         $this->bootstrapPath = $bootstrapPath;
+        $this->migrateDatabase = $migrateDatabase;
 
         $this->refreshApplication();
     }
@@ -76,13 +85,28 @@ class Laravel {
         $capsule->setContainer($capsuleContainer);
         $capsule->setEventDispatcher($eventDispatcher);
 
-        // Add connections from Laravel application
-
         foreach ($this->app['config']->get('database.connections') as $name => $c) {
             $capsule->addConnection($c, $name);
         }
 
         $capsule->bootEloquent();
+
+        $this->app->bindShared('db', function($app) use ($capsule)
+        {
+            return $capsule->getDatabaseManager();
+        });
+
+        // Migrate the database if required
+
+        if ($this->migrateDatabase) {
+            $this->app['artisan']->call('migrate');
+
+            // We have to override these fields on the connection to stop
+            // Closure Instantiator errors
+
+            $this->app['db']->connection()->setCacheManager($this->app['cache']);
+            $this->app['db']->connection()->setPaginator($this->app['paginator']);
+        }
     }
 
     /**

@@ -35,7 +35,11 @@ class LaravelExtension implements ExtensionInterface {
             {
                 $config = $c->getParam('laravel_extension');
 
-                return new Laravel($config['testing_environment'], $bootstrapPath);
+                return new Laravel(
+                    $config['testing_environment'],
+                    $bootstrapPath,
+                    isset($config['migrate_db']) ? $config['migrate_db'] : false
+                );
             });
 
         // Bootstrap maintainer to bind Laravel wrapper to specs
