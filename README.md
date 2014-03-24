@@ -38,7 +38,7 @@ Add this to your `composer.json`:
 ```json
 {
     "require": {
-        "benconstable/phpspec-laravel": "*"
+        "benconstable/phpspec-laravel": "~1.0"
     }
 }
 ```
