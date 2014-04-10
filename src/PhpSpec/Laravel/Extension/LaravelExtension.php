@@ -25,7 +25,11 @@ class LaravelExtension implements ExtensionInterface {
     {
         $bootstrapPath = __DIR__ . '/../../../../../../../bootstrap';
 
-        require $bootstrapPath . '/autoload.php';
+        // We do this so we can run the tests successfully
+
+        if (file_exists($bootstrapPath . '/autoload.php')) {
+            require $bootstrapPath . '/autoload.php';
+        }
 
         // Create & store Laravel wrapper
 
