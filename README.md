@@ -1,7 +1,9 @@
 #PhpSpec Laravel Extension
 
-**Work-in-progress** [PhpSpec](http://www.phpspec.net/) Extension for testing
-[Laravel](http://laravel.com/) applications.
+[![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
+
+[PhpSpec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
+applications.
 
 ##Why this extension?
 
