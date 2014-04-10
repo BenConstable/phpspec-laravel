@@ -1,1 +1,7 @@
+# Composer
 vendor/*
+composer.lock
+
+# Dev
+
+bin/
