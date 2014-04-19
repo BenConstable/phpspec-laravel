@@ -1,6 +1,8 @@
 #PhpSpec Laravel Extension
 
 [![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
+[![Latest Stable Version](https://poser.pugx.org/benconstable/phpspec-laravel/v/stable.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
+[![Total Downloads](https://poser.pugx.org/benconstable/phpspec-laravel/downloads.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 
 [PhpSpec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
 applications.
@@ -162,8 +164,6 @@ class MyPostModelSpec extends EloquentModelBehavior {
 ##Roadmap
 
 * Improved code generation for Laravel
-* More useful Eloquent matchers
-* Tests
 
 ##Further reading
 
