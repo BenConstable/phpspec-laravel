@@ -1,11 +1,7 @@
 <?php namespace PhpSpec\Laravel\Util;
 
 /**
- * This class implements most of the core functionality found in the:
- *
- * \Illuminate\Foundation\Testing\TestCase
- *
- * class. It provides an entry point into Laravel for PhpSpec.
+ * This class provides an entry point into Laravel for PhpSpec.
  */
 class Laravel {
 
