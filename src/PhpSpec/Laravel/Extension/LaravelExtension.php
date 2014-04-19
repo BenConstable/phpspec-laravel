@@ -40,7 +40,7 @@ class LaravelExtension implements ExtensionInterface {
                 $config = $c->getParam('laravel_extension');
 
                 return new Laravel(
-                    $config['testing_environment'],
+                    isset($config['testing_environment']) ? $config['testing_environment'] : null,
                     $bootstrapPath,
                     isset($config['migrate_db']) ? $config['migrate_db'] : false
                 );
