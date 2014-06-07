@@ -75,7 +75,7 @@ class Laravel {
         $this->app->boot();
 
         if ($this->migrateDatabase) {
-            $this->app->make('artisan')->call('migrate');
+            $this->app->make('artisan')->call('migrate:refresh');
         }
     }
 
