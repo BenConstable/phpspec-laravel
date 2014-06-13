@@ -75,7 +75,15 @@ class Laravel {
         $this->app->boot();
 
         if ($this->migrateDatabase) {
-            $this->app->make('artisan')->call('migrate:refresh');
+            $artisan = $this->app->make('artisan');
+
+            try {
+                $artisan->call('migrate:install');
+            } catch (\Illuminate\Database\QueryException $e) {
+                // migration table is already installed
+            }
+
+            $artisan->call('migrate:refresh');
         }
     }
 
