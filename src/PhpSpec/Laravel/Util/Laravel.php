@@ -1,6 +1,7 @@
 <?php namespace PhpSpec\Laravel\Util;
 
 use ErrorException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 
 /**
@@ -79,7 +80,7 @@ class Laravel {
 
             try {
                 $artisan->call('migrate:install');
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (QueryException $e) {
                 // migration table is already installed
             }
 
