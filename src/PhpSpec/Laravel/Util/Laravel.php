@@ -46,16 +46,13 @@ class Laravel {
      * @param string  $bootstrapPath   Path to the Laravel bootstrap dir
      * @param boolean $migrateDatabase Whether or not to run db migrations after
      *                                 bootstrapping. False by default
-     * @param mixed                    @see refreshApplication()
      * @return void
      */
-    public function __construct($env, $bootstrapPath, $migrateDatabase = false, $app = null)
+    public function __construct($env, $bootstrapPath, $migrateDatabase = false)
     {
         $this->env = $env ?: 'testing';
         $this->bootstrapPath = $bootstrapPath;
         $this->migrateDatabase = $migrateDatabase;
-
-        $this->refreshApplication($app);
     }
 
     /**

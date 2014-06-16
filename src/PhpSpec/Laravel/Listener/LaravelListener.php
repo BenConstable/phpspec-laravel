@@ -7,6 +7,8 @@ use PhpSpec\Laravel\Util\Laravel;
 
 /**
  * This listener is used to setup the Laravel application for each spec.
+ *
+ * This only applies to specs that implement the LaravelBehaviorInterface.
  */
 class LaravelListener implements EventSubscriberInterface {
 
@@ -48,6 +50,10 @@ class LaravelListener implements EventSubscriberInterface {
      */
     public function beforeSpecification(SpecificationEvent $event)
     {
-        $this->laravel->refreshApplication();
+        $spec = $event->getSpecification();
+
+        if ($spec->getClassReflection()->hasMethod('setLaravel')) {
+            $this->laravel->refreshApplication();
+        }
     }
 }
