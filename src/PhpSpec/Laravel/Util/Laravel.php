@@ -1,6 +1,7 @@
 <?php namespace PhpSpec\Laravel\Util;
 
 use ErrorException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 
 /**
@@ -75,7 +76,15 @@ class Laravel {
         $this->app->boot();
 
         if ($this->migrateDatabase) {
-            $this->app->make('artisan')->call('migrate:refresh');
+            $artisan = $this->app->make('artisan');
+
+            try {
+                $artisan->call('migrate:install');
+            } catch (QueryException $e) {
+                // migration table is already installed
+            }
+
+            $artisan->call('migrate:refresh');
         }
     }
 

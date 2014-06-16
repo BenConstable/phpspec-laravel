@@ -29,6 +29,7 @@ class LaravelSpec extends ObjectBehavior
 
     function it_will_run_migrations_if_told_to(Application $app, Console $console)
     {
+        $console->call('migrate:install')->shouldBeCalled();
         $console->call('migrate:refresh')->shouldBeCalled();
         $app->make('artisan')->shouldBeCalled();
         $app->make('artisan')->willReturn($console);
