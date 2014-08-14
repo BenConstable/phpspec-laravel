@@ -81,6 +81,7 @@ class Laravel {
             try {
                 $artisan->call('migrate:install');
             } catch (QueryException $e) {
+            } catch (\PDOException $e) {
                 // migration table is already installed
             }
 
