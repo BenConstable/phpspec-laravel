@@ -39,11 +39,17 @@ class LaravelExtension implements ExtensionInterface {
             {
                 $config = $c->getParam('laravel_extension');
 
-                return new Laravel(
+                $laravel = new Laravel(
                     isset($config['testing_environment']) ? $config['testing_environment'] : null,
-                    $bootstrapPath,
-                    isset($config['migrate_db']) ? $config['migrate_db'] : false
+                    $bootstrapPath
                 );
+
+                return $laravel
+                    ->setMigrateDatabase(isset($config['migrate_db']) ? $config['migrate_db'] : false)
+                    ->setSeedDatabase(
+                        isset($config['seed_db']) ? $config['seed_db'] : false,
+                        isset($config['seed_class']) ? $config['seed_class'] : null
+                    );
             });
 
         // Bootstrap maintainer to bind Laravel wrapper to specs
