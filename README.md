@@ -82,6 +82,22 @@ This is useful if you'd like to make use of a SQLite in-memory database for any
 Eloquent model tests (see [here](http://code.tutsplus.com/tutorials/testing-like-a-boss-in-laravel-models--net-30087)
 for how you'd set this up).
 
+####Seeding
+
+If you're running migrations, you can also specify that you'd like your database
+to be seeded:
+
+```yaml
+laravel_extension:
+    migrate_db: true
+    seed_db: true
+    seed_class: 'DatabaseSeeder'
+```
+
+`seed_class` is optional, and defaults to `DatabaseSeeder`. If you are using a
+custom seed class, be sure to add the fully qualified namespace (e.g
+`My\Custom\Seeder`)
+
 ##Usage
 
 ###General testing
