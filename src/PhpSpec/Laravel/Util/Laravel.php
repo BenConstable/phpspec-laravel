@@ -38,21 +38,36 @@ class Laravel {
     private $migrateDatabase;
 
     /**
+     * Whether or not to seed the database after booting Laravel.
+     *
+     * @var boolean
+     */
+    private $seedDatabase;
+
+    /**
+     * Database seeding class. 'DatabaseSeeder' by default.
+     *
+     * @var string
+     */
+    private $seedClass;
+
+    /**
      * Constructor.
      *
      * Setup application on construct.
      *
-     * @param string  $env             Laravel testing environment. 'testing' by default
+     * @param string  $env             Laravel testing environment. 'testing' by
+     *                                 default
      * @param string  $bootstrapPath   Path to the Laravel bootstrap dir
-     * @param boolean $migrateDatabase Whether or not to run db migrations after
-     *                                 bootstrapping. False by default
      * @return void
      */
-    public function __construct($env, $bootstrapPath, $migrateDatabase = false)
+    public function __construct($env, $bootstrapPath)
     {
-        $this->env = $env ?: 'testing';
-        $this->bootstrapPath = $bootstrapPath;
-        $this->migrateDatabase = $migrateDatabase;
+        $this->env             = $env ?: 'testing';
+        $this->bootstrapPath   = $bootstrapPath;
+        $this->migrateDatabase = false;
+        $this->seedDatabase    = false;
+        $this->seedClass       = 'DatabaseSeeder';
     }
 
     /**
@@ -82,6 +97,10 @@ class Laravel {
             }
 
             $artisan->call('migrate:refresh');
+
+            if ($this->seedDatabase) {
+                $artisan->call('db:seed', array('--class' => $this->seedClass));
+            }
         }
     }
 
@@ -113,6 +132,57 @@ class Laravel {
     public function getMigrateDatabase()
     {
         return $this->migrateDatabase;
+    }
+
+    /**
+     * Set the database migration flag.
+     *
+     * @param  boolean                       $migrateDatabase Database migration flag
+     * @return \PhpSpec\Laravel\Util\Laravel                  This, for chaining
+     */
+    public function setMigrateDatabase($migrateDatabase)
+    {
+        $this->migrateDatabase = $migrateDatabase;
+
+        return $this;
+    }
+
+    /**
+     * Get the database seeding flag.
+     *
+     * @return true
+     */
+    public function getSeedDatabase()
+    {
+        return $this->seedDatabase;
+    }
+
+    /**
+     * Get the database seeding class name.
+     *
+     * @return string
+     */
+    public function getSeedDatabaseClass()
+    {
+        return $this->seedClass;
+    }
+
+    /**
+     * Set the database seeding flag.
+     *
+     * @param  boolean                       $seedDatabase Database seeding flag
+     * @param  string                        $seedClass    Database seeding class
+     * @return \PhpSpec\Laravel\Util\Laravel               This, for chaining
+     */
+    public function setSeedDatabase($seedDatabase, $seedClass = null)
+    {
+        $this->seedDatabase = $seedDatabase;
+
+        if ($seedClass !== null) {
+            $this->seedClass = $seedClass;
+        }
+
+        return $this;
     }
 
     /**

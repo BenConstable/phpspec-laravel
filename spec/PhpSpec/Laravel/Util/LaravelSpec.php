@@ -18,13 +18,13 @@ class LaravelSpec extends ObjectBehavior
 
     function it_boots_in_the_testing_env_by_default()
     {
-        $this->beConstructedWith(null, '.', false);
+        $this->beConstructedWith(null, '.');
         $this->getEnv()->shouldBe('testing');
     }
 
     function it_allows_the_env_to_be_set_to_anything()
     {
-        $this->beConstructedWith('whatever', '.', false);
+        $this->beConstructedWith('whatever', '.');
         $this->getEnv()->shouldBe('whatever');
     }
 
@@ -38,8 +38,43 @@ class LaravelSpec extends ObjectBehavior
         $this->appInst->make('artisan')->shouldBeCalled();
         $this->appInst->make('artisan')->willReturn($console);
 
-        $this->beConstructedWith(null, '.', true);
+        $this->beConstructedWith(null, '.');
+        $this->setMigrateDatabase(true);
         $this->getMigrateDatabase()->shouldBe(true);
+        $this->refreshApplication($this->appInst);
+    }
+
+    function it_will_run_seeder_if_told_to(Console $console)
+    {
+        $console->call('migrate:install')->shouldBeCalled();
+        $console->call('migrate:refresh')->shouldBeCalled();
+        $console->call('db:seed', array('--class' => 'DatabaseSeeder'))->shouldBeCalled();
+
+        $this->appInst->setRequestForConsoleEnvironment()->shouldBeCalled();
+        $this->appInst->boot()->shouldBeCalled();
+        $this->appInst->make('artisan')->shouldBeCalled();
+        $this->appInst->make('artisan')->willReturn($console);
+
+        $this->beConstructedWith(null, '.');
+        $this->setMigrateDatabase(true);
+        $this->setSeedDatabase(true);
+        $this->refreshApplication($this->appInst);
+    }
+
+    function it_will_run_seeder_with_custom_class_if_told_to(Console $console)
+    {
+        $console->call('migrate:install')->shouldBeCalled();
+        $console->call('migrate:refresh')->shouldBeCalled();
+        $console->call('db:seed', array('--class' => 'MyDatabaseSeeder'))->shouldBeCalled();
+
+        $this->appInst->setRequestForConsoleEnvironment()->shouldBeCalled();
+        $this->appInst->boot()->shouldBeCalled();
+        $this->appInst->make('artisan')->shouldBeCalled();
+        $this->appInst->make('artisan')->willReturn($console);
+
+        $this->beConstructedWith(null, '.');
+        $this->setMigrateDatabase(true);
+        $this->setSeedDatabase(true, 'MyDatabaseSeeder');
         $this->refreshApplication($this->appInst);
     }
 
