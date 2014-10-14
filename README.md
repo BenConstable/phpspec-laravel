@@ -116,7 +116,7 @@ specify the path to the Laravel framework files like so:
 
 ```yaml
 laravel_extension:
-    bootstrap_path: "/shared/laravel/install"
+    framework_path: "/shared/laravel/install"
 ```
 
 You can specify either an absolute path (use leading slash), or a path relative
@@ -125,7 +125,7 @@ install location would be as follows:
 
 ```yaml
 laravel_extension:
-    bootstrap_path: ".." # Read like vendor/../
+    framework_path: ".." # Read like vendor/../
 ```
 
 ##Usage

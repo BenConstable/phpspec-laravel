@@ -53,7 +53,7 @@ class LaravelExtension implements ExtensionInterface {
                 $config = $c->getParam('laravel_extension');
 
                 $bootstrapPath = $getBoostrapPath(
-                    isset($config['bootstrap_path']) ? $config['bootstrap_path'] : null
+                    isset($config['framework_path']) ? $config['framework_path'] : null
                 );
 
                 if (file_exists($bootstrapPath . '/autoload.php')) {
