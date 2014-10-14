@@ -98,6 +98,36 @@ laravel_extension:
 custom seed class, be sure to add the fully qualified namespace (e.g
 `My\Custom\Seeder`)
 
+###Laravel path
+
+By default, the extension will look for the Laravel framework files in the
+directory above the `vendor/` dir, like so:
+
+```
+- app/
+- bootstrap/
+- public/
+- vendor/
+- phpspec.yml
+```
+
+This is the default layout of a Laravel project. However, you can manually
+specify the path to the Laravel framework files like so:
+
+```yaml
+laravel_extension:
+    bootstrap_path: "/shared/laravel/install"
+```
+
+You can specify either an absolute path (use leading slash), or a path relative
+to the `vendor/` directory. For example, a relative path setting for the default
+install location would be as follows:
+
+```yaml
+laravel_extension:
+    bootstrap_path: ".." # Read like vendor/../
+```
+
 ##Usage
 
 ###General testing
