@@ -23,21 +23,44 @@ class LaravelExtension implements ExtensionInterface {
      */
     public function load(ServiceContainer $container)
     {
-        $bootstrapPath = __DIR__ . '/../../../../../../../bootstrap';
+        $getBoostrapPath = function ($manualPath = null)
+        {
+            // Configured absolute paths
 
-        // We do this so we can run the tests successfully
+            if (($manualPath !== null) && (strpos($manualPath, '/') === 0)) {
+                return $manualPath . '/bootstrap';
+            }
 
-        if (file_exists($bootstrapPath . '/autoload.php')) {
-            require $bootstrapPath . '/autoload.php';
-        }
+            // Paths relative to vendor/ dir
+
+            if (!is_dir($vendorDir = getcwd() . '/vendor')) {
+                $vendorDir = __DIR__ . '/../../../../../..';
+            }
+
+            if (($manualPath !== null) && is_dir($vendorDir . '/' . $manualPath)) {
+                return $vendorDir . '/' . $manualPath . '/bootstrap';
+            } else {
+                return $vendorDir . '/../bootstrap';
+            }
+        };
 
         // Create & store Laravel wrapper
 
         $container->setShared(
             'laravel',
-            function ($c) use ($bootstrapPath)
+            function ($c) use ($getBoostrapPath)
             {
                 $config = $c->getParam('laravel_extension');
+
+                $bootstrapPath = $getBoostrapPath(
+                    isset($config['framework_path']) ? $config['framework_path'] : null
+                );
+
+                if (file_exists($bootstrapPath . '/autoload.php')) {
+                    require $bootstrapPath . '/autoload.php';
+                } else {
+                    die("Bootstrap dir not found at $bootstrapPath");
+                }
 
                 $laravel = new Laravel(
                     isset($config['testing_environment']) ? $config['testing_environment'] : null,
