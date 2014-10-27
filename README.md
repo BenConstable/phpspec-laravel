@@ -41,9 +41,11 @@ Add this to your `composer.json`:
 
 ```json
 {
-    "require": {
+    "require-dev": {
+        "laravel/laravel" : "dev-develop",
         "benconstable/phpspec-laravel": "~1.0"
     }
+    "minimum-stability": "dev"
 }
 ```
 

@@ -13,9 +13,10 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=5.4.0",
-        "laravel/laravel": "dev-develop",
         "phpspec/phpspec": "2.1.x-dev"
+    },
+    "suggest": {
+        "laravel/laravel": "Install laravel/laravel:dev-develop or a stable version of laravel 5.0 to use it as the framework_path."
     },
     "autoload": {
         "psr-0": {
