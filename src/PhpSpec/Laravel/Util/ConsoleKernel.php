@@ -22,7 +22,7 @@ class ConsoleKernel extends Kernel {
         /**
          * We are probably using "phpspec run", don't throw an exception for that.
          */
-        if ($input->getFirstArgument() == 'run') {
+        if ($input->getFirstArgument() === 'run') {
             return 1;
         }
 
