@@ -10,7 +10,7 @@ use Symfony\Component\Console\Application;
 
 /**
  * Setup the Laravel extension.
- * Boostraps Laravel and sets up some objects in the Container.
+ * Bootstraps Laravel and sets up some objects in the Container.
  */
 class LaravelExtension implements ExtensionInterface
 {
@@ -31,14 +31,15 @@ class LaravelExtension implements ExtensionInterface
             function ($c) {
                 $config = $c->getParam('laravel_extension');
 
-                $appPath = $this->getAppPath(
-                    isset($config['framework_path']) ? $config['framework_path'] : null
-                );
+                $environment = isset($config['testing_environment']) ? $config['testing_environment'] : null;
 
-                $laravel = new Laravel(
-                    isset($config['testing_environment']) ? $config['testing_environment'] : null,
-                    $appPath
-                );
+                $path = isset($config['framework_path']) ? $config['framework_path'] : null;
+
+                $basePath = $this->getBasePath($path);
+
+                $this->validateBasePath($basePath);
+
+                $laravel = new Laravel($environment, $basePath);
 
                 if (!empty($config['http_kernel_class'])) {
                     $laravel->setHttpKernelClass($config['http_kernel_class']);
@@ -90,26 +91,36 @@ class LaravelExtension implements ExtensionInterface
         );
     }
 
-    protected function getAppPath($manualPath = null)
+    /**
+     * Get base path
+     *
+     * @param null $path
+     * @return null|string
+     */
+    public function getBasePath($path = null)
     {
-        // Configured absolute paths
-
-        if ($this->isAbsolutePath($manualPath)) {
-            return $manualPath;
-        } else {
-            // Paths relative to vendor/ dir
-            $vendorDir = $this->getVendorPath();
-
-            $manualPath = $vendorDir . '/' . $manualPath;
-
-            if (($manualPath !== null) && is_dir($manualPath)) {
-                return $manualPath;
-            } else {
-                // need the entire laravel package to get the kernel, middlewares and configs
-                return $vendorDir . '/laravel/laravel';
-            }
+        // The application we are testing is already laravel
+        if (!$path) {
+            $path = dirname($this->getVendorPath());
+            // If not an absolute path
+        } elseif (!$this->isAbsolutePath($path)) {
+            // make relative to vendor dir
+            $path = $this->getVendorPath() . '/' . $path;
         }
 
+        return $path;
+    }
+
+    /**
+     * Validate base path
+     *
+     * @param $path
+     */
+    public function validateBasePath($path)
+    {
+        if (!is_dir($path)) {
+            throw new \InvalidArgumentException("Framework path `{$path}` not found.");
+        }
     }
 
     /**
@@ -124,11 +135,13 @@ class LaravelExtension implements ExtensionInterface
     }
 
     /**
+     * Get vendor path
+     *
      * @return string
      */
-    protected function getVendorPath()
+    public function getVendorPath()
     {
-        return __DIR__ . '/../../../../../..';
+        return realpath(__DIR__ . '/../../../../../..');
     }
 
 }
