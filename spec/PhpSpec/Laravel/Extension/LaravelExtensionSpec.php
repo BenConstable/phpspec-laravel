@@ -62,7 +62,7 @@ class LaravelExtensionSpec extends ObjectBehavior
 
     function it_gets_base_path_relative_to_vendor()
     {
-        $this->getBasePath('laravel/laravel')->shouldEndWith('vendor/laravel/laravel');
+        $this->getBasePath('laravel/laravel')->shouldEndWith('laravel/laravel');
     }
 
     function it_gets_absolute_base_path()
