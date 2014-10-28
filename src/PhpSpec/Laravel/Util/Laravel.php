@@ -1,6 +1,7 @@
 <?php namespace PhpSpec\Laravel\Util;
 
 use App\Console\Kernel;
+use Carbon\Carbon;
 use ErrorException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
@@ -240,13 +241,18 @@ class Laravel
      */
     protected function createApplication()
     {
-        $unitTesting = true;
+        date_default_timezone_set('UTC');
 
-        $testEnvironment = $this->env;
+        Carbon::setTestNow(Carbon::now());
 
         $app = new Application(
             $this->getAppPath()
         );
+
+        /**
+         * Set the environment
+         */
+        $app['env'] = $this->env;
 
         $app->singleton(
             'Illuminate\Contracts\Http\Kernel',
