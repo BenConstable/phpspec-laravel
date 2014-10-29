@@ -251,8 +251,11 @@ class Laravel
 
         /**
          * Set the environment
+         * Let the .env file override this
          */
-        $app['env'] = $this->env;
+        if (!getenv('APP_ENV')) {
+            $_SERVER['argv'][] = '--env='.$this->getEnv();
+        }
 
         $app->singleton(
             'Illuminate\Contracts\Http\Kernel',
