@@ -28,13 +28,18 @@ class LaravelSpec extends ObjectBehavior
         $this->getEnv()->shouldBe('whatever');
     }
 
+    function it_allows_to_set_and_get_the_kernel_classes()
+    {
+        $this->beConstructedWith(null, '.');
+        $this->setHttpKernelClass('Http')->getHttpKernelClass()->shouldReturn('Http');
+        $this->setConsoleKernelClass('Console')->getConsoleKernelClass()->shouldReturn('Console');
+    }
+    
     function it_will_run_migrations_if_told_to(Console $console)
     {
         $console->call('migrate:install')->shouldBeCalled();
         $console->call('migrate:refresh')->shouldBeCalled();
 
-        $this->appInst->setRequestForConsoleEnvironment()->shouldBeCalled();
-        $this->appInst->boot()->shouldBeCalled();
         $this->appInst->make('artisan')->shouldBeCalled();
         $this->appInst->make('artisan')->willReturn($console);
 
@@ -50,8 +55,6 @@ class LaravelSpec extends ObjectBehavior
         $console->call('migrate:refresh')->shouldBeCalled();
         $console->call('db:seed', array('--class' => 'DatabaseSeeder'))->shouldBeCalled();
 
-        $this->appInst->setRequestForConsoleEnvironment()->shouldBeCalled();
-        $this->appInst->boot()->shouldBeCalled();
         $this->appInst->make('artisan')->shouldBeCalled();
         $this->appInst->make('artisan')->willReturn($console);
 
@@ -67,8 +70,6 @@ class LaravelSpec extends ObjectBehavior
         $console->call('migrate:refresh')->shouldBeCalled();
         $console->call('db:seed', array('--class' => 'MyDatabaseSeeder'))->shouldBeCalled();
 
-        $this->appInst->setRequestForConsoleEnvironment()->shouldBeCalled();
-        $this->appInst->boot()->shouldBeCalled();
         $this->appInst->make('artisan')->shouldBeCalled();
         $this->appInst->make('artisan')->willReturn($console);
 
@@ -80,9 +81,6 @@ class LaravelSpec extends ObjectBehavior
 
     function it_allows_access_to_the_app()
     {
-        $this->appInst->setRequestForConsoleEnvironment()->shouldBeCalled();
-        $this->appInst->boot()->shouldBeCalled();
-
         $this->beConstructedWith(null, '.', false);
         $this->refreshApplication($this->appInst);
         $this->app->shouldHaveType('Illuminate\Foundation\Application');

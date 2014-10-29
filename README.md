@@ -41,9 +41,11 @@ Add this to your `composer.json`:
 
 ```json
 {
-    "require": {
+    "require-dev": {
+        "laravel/laravel" : "dev-develop",
         "benconstable/phpspec-laravel": "~1.0"
     }
+    "minimum-stability": "dev"
 }
 ```
 
@@ -98,6 +100,17 @@ laravel_extension:
 custom seed class, be sure to add the fully qualified namespace (e.g
 `My\Custom\Seeder`)
 
+###Http or Console kernel classes
+
+If you have a Laravel application with a custom middleware stack or different set of commands
+you might need to specify a custom http or console kernel class.
+
+```yaml
+laravel_extension:
+    http_kernel_class: MyCustom\Http\Kernel
+    console_kernel_class: MyCustom\Console\Kernel
+```
+
 ###Laravel path
 
 By default, the extension will look for the Laravel framework files in the
@@ -106,6 +119,7 @@ directory above the `vendor/` dir, like so:
 ```
 - app/
 - bootstrap/
+- config/
 - public/
 - vendor/
 - phpspec.yml
