@@ -1,19 +1,19 @@
 <?php namespace PhpSpec\Laravel\Extension;
 
 use PhpSpec\Extension\ExtensionInterface;
-use PhpSpec\ServiceContainer;
-
 use PhpSpec\Laravel\Listener\LaravelListener;
 use PhpSpec\Laravel\Runner\Maintainer\LaravelMaintainer;
 use PhpSpec\Laravel\Runner\Maintainer\PresenterMaintainer;
 use PhpSpec\Laravel\Util\Laravel;
+use PhpSpec\ServiceContainer;
+use Symfony\Component\Console\Application;
 
 /**
  * Setup the Laravel extension.
- *
- * Boostraps Laravel and sets up some objects in the Container.
+ * Bootstraps Laravel and sets up some objects in the Container.
  */
-class LaravelExtension implements ExtensionInterface {
+class LaravelExtension implements ExtensionInterface
+{
 
     /**
      * Setup the Laravel extension.
@@ -23,49 +23,31 @@ class LaravelExtension implements ExtensionInterface {
      */
     public function load(ServiceContainer $container)
     {
-        $getBoostrapPath = function ($manualPath = null)
-        {
-            // Configured absolute paths
-
-            if (($manualPath !== null) && (strpos($manualPath, '/') === 0)) {
-                return $manualPath . '/bootstrap';
-            }
-
-            // Paths relative to vendor/ dir
-
-            if (!is_dir($vendorDir = getcwd() . '/vendor')) {
-                $vendorDir = __DIR__ . '/../../../../../..';
-            }
-
-            if (($manualPath !== null) && is_dir($vendorDir . '/' . $manualPath)) {
-                return $vendorDir . '/' . $manualPath . '/bootstrap';
-            } else {
-                return $vendorDir . '/../bootstrap';
-            }
-        };
 
         // Create & store Laravel wrapper
 
         $container->setShared(
             'laravel',
-            function ($c) use ($getBoostrapPath)
-            {
+            function ($c) {
                 $config = $c->getParam('laravel_extension');
 
-                $bootstrapPath = $getBoostrapPath(
-                    isset($config['framework_path']) ? $config['framework_path'] : null
-                );
+                $environment = isset($config['testing_environment']) ? $config['testing_environment'] : null;
 
-                if (file_exists($bootstrapPath . '/autoload.php')) {
-                    require $bootstrapPath . '/autoload.php';
-                } else {
-                    die("Bootstrap dir not found at $bootstrapPath");
+                $path = isset($config['framework_path']) ? $config['framework_path'] : null;
+
+                $basePath = $this->getBasePath($path);
+
+                $this->validateBasePath($basePath);
+
+                $laravel = new Laravel($environment, $basePath);
+
+                if (!empty($config['http_kernel_class'])) {
+                    $laravel->setHttpKernelClass($config['http_kernel_class']);
                 }
 
-                $laravel = new Laravel(
-                    isset($config['testing_environment']) ? $config['testing_environment'] : null,
-                    $bootstrapPath
-                );
+                if (!empty($config['console_kernel_class'])) {
+                    $laravel->setConsoleKernelClass($config['console_kernel_class']);
+                }
 
                 return $laravel
                     ->setMigrateDatabase(isset($config['migrate_db']) ? $config['migrate_db'] : false)
@@ -73,14 +55,14 @@ class LaravelExtension implements ExtensionInterface {
                         isset($config['seed_db']) ? $config['seed_db'] : false,
                         isset($config['seed_class']) ? $config['seed_class'] : null
                     );
-            });
+            }
+        );
 
         // Bootstrap maintainer to bind Laravel wrapper to specs
 
         $container->setShared(
             'runner.maintainers.laravel',
-            function ($c)
-            {
+            function ($c) {
                 return new LaravelMaintainer(
                     $c->get('laravel')
                 );
@@ -92,8 +74,7 @@ class LaravelExtension implements ExtensionInterface {
 
         $container->setShared(
             'runner.maintainers.presenter',
-            function ($c)
-            {
+            function ($c) {
                 return new PresenterMaintainer(
                     $c->get('formatter.presenter')
                 );
@@ -104,10 +85,63 @@ class LaravelExtension implements ExtensionInterface {
 
         $container->setShared(
             'event_dispatcher.listeners.laravel',
-            function ($c)
-            {
+            function ($c) {
                 return new LaravelListener($c->get('laravel'));
             }
         );
     }
+
+    /**
+     * Get base path
+     *
+     * @param null $path
+     * @return null|string
+     */
+    public function getBasePath($path = null)
+    {
+        // The application we are testing is already laravel
+        if (!$path) {
+            $path = dirname($this->getVendorPath());
+            // If not an absolute path
+        } elseif (!$this->isAbsolutePath($path)) {
+            // make relative to vendor dir
+            $path = $this->getVendorPath() . '/' . $path;
+        }
+
+        return $path;
+    }
+
+    /**
+     * Validate base path
+     *
+     * @param $path
+     */
+    public function validateBasePath($path)
+    {
+        if (!is_dir($path)) {
+            throw new \InvalidArgumentException("Framework path `{$path}` not found.");
+        }
+    }
+
+    /**
+     * Is absolute path
+     *
+     * @param $path
+     * @return bool
+     */
+    public function isAbsolutePath($path)
+    {
+        return ($path !== null) && (strpos($path, '/') === 0);
+    }
+
+    /**
+     * Get vendor path
+     *
+     * @return string
+     */
+    public function getVendorPath()
+    {
+        return realpath(__DIR__ . '/../../../../../..');
+    }
+
 }
