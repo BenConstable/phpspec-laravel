@@ -7,6 +7,11 @@
 [PhpSpec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
 applications.
 
+##Laravel 5
+
+Laravel 5 support is a work in progress, and can be found on the
+[`laravel-5`](https://github.com/BenConstable/phpspec-laravel) branch.
+
 ##Why this extension?
 
 This extension allows you to test your objects and classes as you would normally
