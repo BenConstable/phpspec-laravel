@@ -1,11 +1,18 @@
 #PhpSpec Laravel Extension
 
-[![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
+[![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=laravel-5)](https://travis-ci.org/BenConstable/phpspec-laravel)
 [![Latest Stable Version](https://poser.pugx.org/benconstable/phpspec-laravel/v/stable.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 [![Total Downloads](https://poser.pugx.org/benconstable/phpspec-laravel/downloads.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 
 [PhpSpec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
 applications.
+
+##Laravel 5
+
+This is an **in-development** branch which supports Laravel 5. It's a work in
+progress, and will be finalised when Laravel 5 has its first stable release.
+For Laravel 4 support, see the [`master`](https://github.com/BenConstable/phpspec-laravel)
+branch.
 
 ##Why this extension?
 
@@ -42,8 +49,7 @@ Add this to your `composer.json`:
 ```json
 {
     "require-dev": {
-        "laravel/laravel" : "dev-develop",
-        "benconstable/phpspec-laravel": "~1.0"
+        "benconstable/phpspec-laravel": "~2.0"
     }
     "minimum-stability": "dev"
 }
@@ -238,4 +244,9 @@ on DI and unit testing in Laravel
 Laravel
 * [This tutorial](http://code.tutsplus.com/tutorials/testing-like-a-boss-in-laravel-models--net-30087) has some useful information on setting up your database
 for testing
+
+##Thanks
+
+* Thanks to [@obrignoni](https://github.com/obrignoni) for his great work in
+getting this extension working with Laravel 5
 
