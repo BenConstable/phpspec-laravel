@@ -117,6 +117,14 @@ laravel_extension:
     console_kernel_class: MyCustom\Console\Kernel
 ```
 
+###Exception Handler class
+
+You may need to set your own custom exception handler class
+```yaml
+laravel_extension:
+  exception_handler_class: MyCustom\Exceptions\Handler
+```
+
 ###Laravel path
 
 By default, the extension will look for the Laravel framework files in the
