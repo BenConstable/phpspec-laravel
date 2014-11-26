@@ -67,6 +67,11 @@ class Laravel
     protected $consoleKernelClass = 'PhpSpec\Laravel\Util\ConsoleKernel';
 
     /**
+     * @var string
+     */
+    protected $exceptionHandlerClass = 'App\Exceptions\Handler';
+
+    /**
      * Constructor.
      * Setup application on construct.
      *
@@ -106,7 +111,7 @@ class Laravel
             $artisan->call('migrate:refresh');
 
             if ($this->seedDatabase) {
-                $artisan->call('db:seed', array('--class' => $this->seedClass));
+                $artisan->call('db:seed', ['--class' => $this->seedClass]);
             }
         }
     }
@@ -170,6 +175,29 @@ class Laravel
     public function setConsoleKernelClass($consoleKernelClass)
     {
         $this->consoleKernelClass = $consoleKernelClass;
+        return $this;
+    }
+
+    /**
+     * Get the exception handler class
+     *
+     * @return string
+     */
+    public function getExceptionHandlerClass()
+    {
+        return $this->exceptionHandlerClass;
+    }
+
+    /**
+     * Set the exception handler class
+     *
+     * @param $exceptionHandlerClass
+     *
+     * @return $this
+     */
+    public function setExceptionHandlerClass($exceptionHandlerClass)
+    {
+        $this->exceptionHandlerClass = $exceptionHandlerClass;
         return $this;
     }
 
@@ -265,6 +293,11 @@ class Laravel
         $app->singleton(
             'Illuminate\Contracts\Console\Kernel',
             $this->getConsoleKernelClass()
+        );
+
+        $app->singleton(
+            'Illuminate\Contracts\Debug\ExceptionHandler',
+            $this->getExceptionHandlerClass()
         );
 
         $app['router']->any(

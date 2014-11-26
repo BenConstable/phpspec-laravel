@@ -34,6 +34,12 @@ class LaravelSpec extends ObjectBehavior
         $this->setHttpKernelClass('Http')->getHttpKernelClass()->shouldReturn('Http');
         $this->setConsoleKernelClass('Console')->getConsoleKernelClass()->shouldReturn('Console');
     }
+
+    function it_allows_to_set_and_get_the_exception_class()
+    {
+        $this->beConstructedWith(null, '.');
+        $this->setExceptionHandlerClass('Exception')->getExceptionHandlerClass()->shouldReturn('Exception');
+    }
     
     function it_will_run_migrations_if_told_to(Console $console)
     {
