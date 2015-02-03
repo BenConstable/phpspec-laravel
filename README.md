@@ -115,6 +115,7 @@ you might need to specify a custom http or console kernel class.
 laravel_extension:
     http_kernel_class: MyCustom\Http\Kernel
     console_kernel_class: MyCustom\Console\Kernel
+    debug_exception_handler_class: MyCustom\Exceptions\Handler
 ```
 
 ###Laravel path

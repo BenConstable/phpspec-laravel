@@ -49,6 +49,10 @@ class LaravelExtension implements ExtensionInterface
                     $laravel->setConsoleKernelClass($config['console_kernel_class']);
                 }
 
+                if (!empty($config['debug_exception_handler_class'])) {
+                    $laravel->setDebugExceptionHandlerClass($config['debug_exception_handler_class']);
+                }
+
                 return $laravel
                     ->setMigrateDatabase(isset($config['migrate_db']) ? $config['migrate_db'] : false)
                     ->setSeedDatabase(

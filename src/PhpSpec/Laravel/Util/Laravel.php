@@ -152,7 +152,7 @@ class Laravel
     }
 
     /**
-     *
+     * Get console Kernel class
      *
      * @return string
      */
@@ -170,6 +170,29 @@ class Laravel
     public function setConsoleKernelClass($consoleKernelClass)
     {
         $this->consoleKernelClass = $consoleKernelClass;
+        return $this;
+    }
+
+    /**
+     * Get debug exception handler class
+     *
+     * @return string
+     */
+    public function getDebugExceptionHandlerClass()
+    {
+        return $this->debugExceptionHandlerClass;
+    }
+
+
+    /**
+     * Set debug exception handler class
+     *
+     * @param $debugExceptionHandlerClass
+     * @return $this
+     */
+    public function setDebugExceptionHandlerClass($debugExceptionHandlerClass)
+    {
+        $this->debugExceptionHandlerClass = $debugExceptionHandlerClass;
         return $this;
     }
 
@@ -265,6 +288,11 @@ class Laravel
         $app->singleton(
             'Illuminate\Contracts\Console\Kernel',
             $this->getConsoleKernelClass()
+        );
+
+        $app->singleton(
+            'Illuminate\Contracts\Debug\ExceptionHandler',
+            $this->getDebugExceptionHandlerClass()
         );
 
         $app['router']->any(

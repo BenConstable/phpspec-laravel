@@ -20,12 +20,7 @@ class ConsoleKernelSpec extends ObjectBehavior
     {
         $this->shouldHaveType('PhpSpec\Laravel\Util\ConsoleKernel');
     }
-
-    function it_handles_the_console_input_and_output(InputInterface $input, OutputInterface $output)
-    {
-        $this->handle($input, $output)->shouldBe(1);
-    }
-
+    
     function it_throws_exception_when_a_command_does_not_exists(InputInterface $input, OutputInterface $output)
     {
         $input->getArguments()->willReturn(['nonexistent-command']);
