@@ -1,6 +1,6 @@
 #PhpSpec Laravel Extension
 
-[![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
+[![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=laravel-5)](https://travis-ci.org/BenConstable/phpspec-laravel)
 [![Latest Stable Version](https://poser.pugx.org/benconstable/phpspec-laravel/v/stable.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 [![Total Downloads](https://poser.pugx.org/benconstable/phpspec-laravel/downloads.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 
@@ -9,8 +9,10 @@ applications.
 
 ##Laravel 5
 
-Laravel 5 support is a work in progress, and can be found on the
-[`laravel-5`](https://github.com/BenConstable/phpspec-laravel) branch.
+This is an **in-development** branch which supports Laravel 5. It's a work in
+progress, and will be finalised when Laravel 5 has its first stable release.
+For Laravel 4 support, see the [`master`](https://github.com/BenConstable/phpspec-laravel)
+branch.
 
 ##Why this extension?
 
@@ -46,9 +48,10 @@ Add this to your `composer.json`:
 
 ```json
 {
-    "require": {
-        "benconstable/phpspec-laravel": "~1.0"
+    "require-dev": {
+        "benconstable/phpspec-laravel": "~2.0"
     }
+    "minimum-stability": "dev"
 }
 ```
 
@@ -103,6 +106,17 @@ laravel_extension:
 custom seed class, be sure to add the fully qualified namespace (e.g
 `My\Custom\Seeder`)
 
+###Http or Console kernel classes
+
+If you have a Laravel application with a custom middleware stack or different set of commands
+you might need to specify a custom http or console kernel class.
+
+```yaml
+laravel_extension:
+    http_kernel_class: MyCustom\Http\Kernel
+    console_kernel_class: MyCustom\Console\Kernel
+```
+
 ###Laravel path
 
 By default, the extension will look for the Laravel framework files in the
@@ -111,6 +125,7 @@ directory above the `vendor/` dir, like so:
 ```
 - app/
 - bootstrap/
+- config/
 - public/
 - vendor/
 - phpspec.yml
@@ -229,4 +244,9 @@ on DI and unit testing in Laravel
 Laravel
 * [This tutorial](http://code.tutsplus.com/tutorials/testing-like-a-boss-in-laravel-models--net-30087) has some useful information on setting up your database
 for testing
+
+##Thanks
+
+* Thanks to [@obrignoni](https://github.com/obrignoni) for his great work in
+getting this extension working with Laravel 5
 
