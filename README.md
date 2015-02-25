@@ -47,9 +47,8 @@ Add this to your `composer.json`:
 ```json
 {
     "require-dev": {
-        "benconstable/phpspec-laravel": "~2.0"
-    },
-    "minimum-stability": "dev"
+        "benconstable/phpspec-laravel": "~2.0@dev"
+    }
 }
 ```
 
