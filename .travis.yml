@@ -8,7 +8,6 @@ php:
 
 install:
     - composer install
-    - composer require laravel/framework:~5.0
 
 script:
     - ./bin/phpspec run
