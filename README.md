@@ -7,10 +7,14 @@
 [PhpSpec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
 applications.
 
-##Laravel 5
+## Laravel 4
 
-Laravel 5 support is a work in progress, and can be found on the
-[`laravel-5`](https://github.com/BenConstable/phpspec-laravel) branch.
+phpspec-laravel development is now targeted at Laravel 5. Version `2.x` will
+support Laravel 5 only, so please continue to use `1.x` releases for Laravel 4.
+
+There likely won't be any more `1.x` releases (unless any major bugs are found),
+so please consider upgrading to Laravel 4 to continue being able to take
+advantage of new phpspec-laravel features.
 
 ##Why this extension?
 
@@ -46,7 +50,7 @@ Add this to your `composer.json`:
 
 ```json
 {
-    "require": {
+    "require-dev": {
         "benconstable/phpspec-laravel": "~1.0"
     }
 }
