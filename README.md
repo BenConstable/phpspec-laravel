@@ -1,23 +1,21 @@
-#PhpSpec Laravel Extension
+# phpspec Laravel Extension
 
-[![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=laravel-5)](https://travis-ci.org/BenConstable/phpspec-laravel)
+[![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
 [![Latest Stable Version](https://poser.pugx.org/benconstable/phpspec-laravel/v/stable.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 [![Total Downloads](https://poser.pugx.org/benconstable/phpspec-laravel/downloads.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 
-[PhpSpec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
+[phpspec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
 applications.
 
-##Laravel 5
+## Laravel 4
 
-This is an **in-development** branch which supports Laravel 5. It's a work in
-progress, and will be finalised when Laravel 5 has its first stable release.
-For Laravel 4 support, see the [`master`](https://github.com/BenConstable/phpspec-laravel)
-branch.
+phpspec-laravel development is now targeted at Laravel 5. For use with Laravel
+4, please install the latest `1.x` release.
 
-##Why this extension?
+## Why this extension?
 
 This extension allows you to test your objects and classes as you would normally
-with PhpSpec, but gives you a Laravel application context to test within, so
+with phpspec, but gives you a Laravel application context to test within, so
 that you can continue to make use of Laravel's nice features.
 
 In detail,
@@ -31,7 +29,7 @@ You will also continue to be able to use Laravel's helper functions across your
 codebase
 * Allows you to test your Eloquent models, which I ran into difficulty with
 before writing this extension
-* Provides a few extra Laravel-specific PhpSpec matchers to make testing your
+* Provides a few extra Laravel-specific phpspec matchers to make testing your
 application code more straightforward
 
 and
@@ -39,10 +37,10 @@ and
 **it is not:**
 
 * A swap-in replacement for Laravel's built in PHPUnit setup. If you'd like
-functional tests, please use that, [Behat](http://behat.org/),
+integration and/or functional tests, please use that, [Behat](http://behat.org/),
 or [Codeception](http://codeception.com/)
 
-##Installation
+## Installation
 
 Add this to your `composer.json`:
 
@@ -50,7 +48,7 @@ Add this to your `composer.json`:
 {
     "require-dev": {
         "benconstable/phpspec-laravel": "~2.0"
-    }
+    },
     "minimum-stability": "dev"
 }
 ```
@@ -62,9 +60,9 @@ extensions:
     - PhpSpec\Laravel\Extension\LaravelExtension
 ```
 
-##Configuration
+## Configuration
 
-###Testing environment
+### Testing environment
 
 By default, the extension bootstraps Laravel in the `testing` environment. You
 can change this to production (or whatever you like) by setting:
@@ -76,7 +74,7 @@ laravel_extension:
 
 in your `phpspec.yml`.
 
-###Database migration
+### Database migration
 
 If you'd like your database migrations to be run before each spec, you can
 specify:
@@ -90,7 +88,7 @@ This is useful if you'd like to make use of a SQLite in-memory database for any
 Eloquent model tests (see [here](http://code.tutsplus.com/tutorials/testing-like-a-boss-in-laravel-models--net-30087)
 for how you'd set this up).
 
-####Seeding
+#### Seeding
 
 If you're running migrations, you can also specify that you'd like your database
 to be seeded:
@@ -106,7 +104,7 @@ laravel_extension:
 custom seed class, be sure to add the fully qualified namespace (e.g
 `My\Custom\Seeder`)
 
-###Http or Console kernel classes
+### Http or Console kernel classes
 
 If you have a Laravel application with a custom middleware stack or different set of commands
 you might need to specify a custom http or console kernel class.
@@ -117,7 +115,7 @@ laravel_extension:
     console_kernel_class: MyCustom\Console\Kernel
 ```
 
-###Laravel path
+### Laravel path
 
 By default, the extension will look for the Laravel framework files in the
 directory above the `vendor/` dir, like so:
@@ -148,9 +146,9 @@ laravel_extension:
     framework_path: ".." # Read like vendor/../
 ```
 
-##Usage
+## Usage
 
-###General testing
+### General testing
 
 You should test your regular classes by extending the `PhpSpec\Laravel\LaravelObjectBehavior`
 class:
@@ -166,7 +164,7 @@ class MyClassSpec extends LaravelObjectBehavior {
 }
 ```
 
-###Testing Eloquent models
+### Testing Eloquent models
 
 You should test your Eloquent models by extending the `PhpSpec\Laravel\EloquentModelBehavior`
 class:
@@ -185,7 +183,7 @@ class MyPostModelSpec extends EloquentModelBehavior {
 }
 ```
 
-###Accessing the IoC container
+### Accessing the IoC container
 
 You shouldn't need to, but just in case, the booted Laravel IoC container can
 be accessed like:
@@ -198,16 +196,16 @@ $this->laravel->app['variable'];
 
 in your specs.
 
-##Custom Matchers
+## Custom Matchers
 
 Some custom matchers are provided for convenience, feel free to ignore them
 completely!
 
-###DefineRelationshipMatcher
+### DefineRelationshipMatcher
 
 This matcher lets you check for the existence of a valid Eloquent relationship.
 
-####Usage
+#### Usage
 
 `should[Not]DefineRelationship('relationshipType', 'Related\Class')`
 
@@ -227,26 +225,21 @@ class MyPostModelSpec extends EloquentModelBehavior {
 }
 ```
 
-##Roadmap
-
-* Improved code generation for Laravel
-
-##Further reading
+## Further reading
 
 The following articles/websites have been useful to me when developing this
 extension:
 
-* This [open issue](https://github.com/phpspec/phpspec/issues/299) on the PHPSpec
+* This [open issue](https://github.com/phpspec/phpspec/issues/299) on the phpspec
 repo was a good help and is an interesting read
 * Taylor Otwell's [video](http://taylorotwell.com/full-ioc-unit-testing-with-laravel/)
 on DI and unit testing in Laravel
-* [Laracasts](https://laracasts.com/) has a few posts and guides on PHPSpec and
+* [Laracasts](https://laracasts.com/) has a few posts and guides on phpspec and
 Laravel
 * [This tutorial](http://code.tutsplus.com/tutorials/testing-like-a-boss-in-laravel-models--net-30087) has some useful information on setting up your database
 for testing
 
-##Thanks
+## Thanks
 
 * Thanks to [@obrignoni](https://github.com/obrignoni) for his great work in
 getting this extension working with Laravel 5
-
