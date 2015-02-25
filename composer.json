@@ -13,7 +13,7 @@
     ],
     "license": "MIT",
     "require": {
-        "phpspec/phpspec": "2.1.0-RC1",
+        "phpspec/phpspec": "~2.1",
         "laravel/framework": "~5.0"
     },
     "autoload": {
@@ -23,11 +23,9 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.x-dev",
-            "dev-laravel-5": "2.x-dev"
+            "dev-master": "2.x-dev"
         }
     },
-    "minimum-stability": "dev",
     "config": {
         "bin-dir": "bin"
     }
