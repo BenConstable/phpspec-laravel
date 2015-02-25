@@ -2,7 +2,7 @@
 
 namespace spec\PhpSpec\Laravel\Util;
 
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Events\Dispatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -13,6 +13,10 @@ class ConsoleKernelSpec extends ObjectBehavior
 {
     function let(Application $application, Dispatcher $dispatcher)
     {
+        $application
+            ->instance('Illuminate\Console\Scheduling\Schedule', Argument::type('Illuminate\Console\Scheduling\Schedule'))
+            ->shouldBeCalled();
+
         $this->beConstructedWith($application, $dispatcher);
     }
 
@@ -21,12 +25,26 @@ class ConsoleKernelSpec extends ObjectBehavior
         $this->shouldHaveType('PhpSpec\Laravel\Util\ConsoleKernel');
     }
 
-    function it_handles_the_console_input_and_output(InputInterface $input, OutputInterface $output)
+    function it_handles_the_console_input_and_output(Application $application, InputInterface $input, OutputInterface $output)
     {
+        $application
+            ->hasBeenBootstrapped()
+            ->shouldBeCalled()
+            ->willReturn(true);
+
+        $application
+            ->loadDeferredProviders()
+            ->willReturn(true);
+
+        $input
+            ->getFirstArgument()
+            ->shouldBeCalled()
+            ->willReturn('not-run');
+
         $this->handle($input, $output)->shouldBe(1);
     }
 
-    function it_throws_exception_when_a_command_does_not_exists(InputInterface $input, OutputInterface $output)
+    function it_throws_exception_when_a_command_does_not_exist(InputInterface $input, OutputInterface $output)
     {
         $input->getArguments()->willReturn(['nonexistent-command']);
         $this->shouldThrow('Exception')->during('handle', [$input, $output]);
