@@ -95,7 +95,7 @@ class Laravel
         $this->app = $app instanceof Application ? $app : $this->createApplication();
 
         if ($this->migrateDatabase) {
-            $artisan = $this->app->make('artisan');
+            $artisan = $this->app->make('Illuminate\Contracts\Console\Kernel');
 
             try {
                 $artisan->call('migrate:install');
