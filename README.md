@@ -14,9 +14,8 @@ phpspec-laravel development is now targeted at Laravel 5. For use with Laravel
 
 ## Why this extension?
 
-This extension allows you to test your objects and classes as you would normally
-with phpspec, but gives you a Laravel application context to test within, so
-that you can continue to make use of Laravel's nice features.
+This extension provides you with a bootstrapped Laravel environment when writing
+your phpspec tests.
 
 In detail,
 
@@ -92,22 +91,126 @@ to the `vendor/` directory.
 
 ## Usage
 
-### General testing
+### Test as normal
 
-You should test your regular classes by extending the `PhpSpec\Laravel\LaravelObjectBehavior`
-class:
+If you're not using any code specific to the Laravel environment, then you don't
+need to do anything differently. Just write your phpspec tests as normal!
+
+### A header
+
+If you want to take advantage of Laravel's aliases, or use some of
+[helper functions](http://laravel.com/docs/5.0/helpers), extend your specs
+from `PhpSpec\Laravel\LaravelObjectBehavior`. This will stop the errors you'll
+typically see.
+
+**For example, this class uses an alias:**
 
 ```php
 <?php
-namespace spec;
+namespace App;
+
+use Inspiring;
+
+class MyInspiring extends Inspiring
+{
+    public function quoteBackwards()
+    {
+        return strrev(parent::quote());
+    }
+}
+```
+
+and without extending from `PhpSpec\Laravel\LaravelObjectBehavior`:
+
+```php
+<?php
+
+namespace spec\App;
+
+use PhpSpec\ObjectBehavior;
+
+class MyInspiringSpec extends ObjectBehavior
+{
+    function it_inspires_backwards()
+    {
+        $this->quoteBackwards()->shouldBeString();
+    }
+}
+```
+
+you'll get `Fatal error: Class 'Inspiring' not found...`. But extending from `PhpSpec\Laravel\LaravelObjectBehavior`:
+
+```php
+<?php
+
+namespace spec\App;
 
 use PhpSpec\Laravel\LaravelObjectBehavior;
 
-class MyClassSpec extends LaravelObjectBehavior {
-
-    // Test code here...
+class MyInspiringSpec extends LaravelObjectBehavior
+{
+    function it_inspires_backwards()
+    {
+        $this->quoteBackwards()->shouldBeString();
+    }
 }
 ```
+
+you'll get `✔ inspires backwards`.
+
+**and this class uses a helper function:**
+
+```php
+<?php
+namespace App;
+
+class MyEncryptor
+{
+    public function encrypt($arg)
+    {
+        return bcrypt($arg);
+    }
+}
+```
+
+and without extending from `PhpSpec\Laravel\LaravelObjectBehavior`:
+
+```php
+<?php
+
+namespace spec\App;
+
+use PhpSpec\ObjectBehavior;
+
+class MyEncryptor extends ObjectBehavior
+{
+    function it_encrypts_a_string()
+    {
+        $this->encrypt()->shouldBeString();
+    }
+}
+```
+
+you'll get `Fatal error: Call to a member function make() on a non-object...`.
+But extending from `PhpSpec\Laravel\LaravelObjectBehavior`:
+
+```php
+<?php
+
+namespace spec\App;
+
+use PhpSpec\Laravel\LaravelObjectBehavior;
+
+class MyEncryptor extends LaravelObjectBehavior
+{
+    function it_encrypts_a_string()
+    {
+        $this->encrypt()->shouldBeString();
+    }
+}
+```
+
+you'll get `✔ encrypts a string`.
 
 ### Testing Eloquent models
 
@@ -177,10 +280,11 @@ class MyPostModelSpec extends EloquentModelBehavior {
 The following articles/websites have been useful to me when developing this
 extension:
 
-* This [open issue](https://github.com/phpspec/phpspec/issues/299) on the phpspec
+* [This issue](https://github.com/phpspec/phpspec/issues/299) on the phpspec
 repo was a good help and is an interesting read
 * Taylor Otwell's [video](http://taylorotwell.com/full-ioc-unit-testing-with-laravel/)
-on DI and unit testing in Laravel
+on DI and unit testing in Laravel was helpful in understanding the best way to
+use phpspec
 * [Laracasts](https://laracasts.com/) has some great posts and guides on phpspec and Laravel
 
 ## Thanks
