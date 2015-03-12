@@ -73,77 +73,22 @@ laravel_extension:
 
 in your `phpspec.yml`.
 
-### Database migration
+### App bootstrap path
 
-If you'd like your database migrations to be run before each spec, you can
-specify:
+By default, the extension will bootstrap your app by looking for `bootstrap/app.php`
+in the directory above `vendor/`. This is the default location that Laravel
+provides.
 
-```yaml
-laravel_extension:
-    migrate_db: true
-```
-
-This is useful if you'd like to make use of a SQLite in-memory database for any
-Eloquent model tests (see [here](http://code.tutsplus.com/tutorials/testing-like-a-boss-in-laravel-models--net-30087)
-for how you'd set this up).
-
-#### Seeding
-
-If you're running migrations, you can also specify that you'd like your database
-to be seeded:
+You can manually specify the path to the bootstrap file if you're using a non-standard
+installation, like so:
 
 ```yaml
 laravel_extension:
-    migrate_db: true
-    seed_db: true
-    seed_class: 'DatabaseSeeder'
-```
-
-`seed_class` is optional, and defaults to `DatabaseSeeder`. If you are using a
-custom seed class, be sure to add the fully qualified namespace (e.g
-`My\Custom\Seeder`)
-
-### Http or Console kernel classes
-
-If you have a Laravel application with a custom middleware stack or different set of commands
-you might need to specify a custom http or console kernel class.
-
-```yaml
-laravel_extension:
-    http_kernel_class: MyCustom\Http\Kernel
-    console_kernel_class: MyCustom\Console\Kernel
-```
-
-### Laravel path
-
-By default, the extension will look for the Laravel framework files in the
-directory above the `vendor/` dir, like so:
-
-```
-- app/
-- bootstrap/
-- config/
-- public/
-- vendor/
-- phpspec.yml
-```
-
-This is the default layout of a Laravel project. However, you can manually
-specify the path to the Laravel framework files like so:
-
-```yaml
-laravel_extension:
-    framework_path: "/shared/laravel/install"
+    framework_path: "/non/standard/laravel/setup/app.php"
 ```
 
 You can specify either an absolute path (use leading slash), or a path relative
-to the `vendor/` directory. For example, a relative path setting for the default
-install location would be as follows:
-
-```yaml
-laravel_extension:
-    framework_path: ".." # Read like vendor/../
-```
+to the `vendor/` directory.
 
 ## Usage
 
@@ -153,7 +98,8 @@ You should test your regular classes by extending the `PhpSpec\Laravel\LaravelOb
 class:
 
 ```php
-<?php namespace spec;
+<?php
+namespace spec;
 
 use PhpSpec\Laravel\LaravelObjectBehavior;
 
@@ -169,7 +115,8 @@ You should test your Eloquent models by extending the `PhpSpec\Laravel\EloquentM
 class:
 
 ```php
-<?php namespace spec;
+<?php
+namespace spec;
 
 use PhpSpec\Laravel\EloquentModelBehavior;
 
@@ -211,7 +158,8 @@ This matcher lets you check for the existence of a valid Eloquent relationship.
 **Example**
 
 ```php
-<?php namespace spec;
+<?php
+namespace spec;
 
 use PhpSpec\Laravel\EloquentModelBehavior;
 
@@ -233,10 +181,7 @@ extension:
 repo was a good help and is an interesting read
 * Taylor Otwell's [video](http://taylorotwell.com/full-ioc-unit-testing-with-laravel/)
 on DI and unit testing in Laravel
-* [Laracasts](https://laracasts.com/) has a few posts and guides on phpspec and
-Laravel
-* [This tutorial](http://code.tutsplus.com/tutorials/testing-like-a-boss-in-laravel-models--net-30087) has some useful information on setting up your database
-for testing
+* [Laracasts](https://laracasts.com/) has some great posts and guides on phpspec and Laravel
 
 ## Thanks
 
