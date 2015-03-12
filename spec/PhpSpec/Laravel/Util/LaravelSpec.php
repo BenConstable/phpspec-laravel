@@ -34,14 +34,14 @@ class LaravelSpec extends ObjectBehavior
         $this->setHttpKernelClass('Http')->getHttpKernelClass()->shouldReturn('Http');
         $this->setConsoleKernelClass('Console')->getConsoleKernelClass()->shouldReturn('Console');
     }
-    
+
     function it_will_run_migrations_if_told_to(Console $console)
     {
         $console->call('migrate:install')->shouldBeCalled();
         $console->call('migrate:refresh')->shouldBeCalled();
 
-        $this->appInst->make('artisan')->shouldBeCalled();
-        $this->appInst->make('artisan')->willReturn($console);
+        $this->appInst->make('Illuminate\Contracts\Console\Kernel')->shouldBeCalled();
+        $this->appInst->make('Illuminate\Contracts\Console\Kernel')->willReturn($console);
 
         $this->beConstructedWith(null, '.');
         $this->setMigrateDatabase(true);
@@ -55,8 +55,8 @@ class LaravelSpec extends ObjectBehavior
         $console->call('migrate:refresh')->shouldBeCalled();
         $console->call('db:seed', array('--class' => 'DatabaseSeeder'))->shouldBeCalled();
 
-        $this->appInst->make('artisan')->shouldBeCalled();
-        $this->appInst->make('artisan')->willReturn($console);
+        $this->appInst->make('Illuminate\Contracts\Console\Kernel')->shouldBeCalled();
+        $this->appInst->make('Illuminate\Contracts\Console\Kernel')->willReturn($console);
 
         $this->beConstructedWith(null, '.');
         $this->setMigrateDatabase(true);
@@ -70,8 +70,8 @@ class LaravelSpec extends ObjectBehavior
         $console->call('migrate:refresh')->shouldBeCalled();
         $console->call('db:seed', array('--class' => 'MyDatabaseSeeder'))->shouldBeCalled();
 
-        $this->appInst->make('artisan')->shouldBeCalled();
-        $this->appInst->make('artisan')->willReturn($console);
+        $this->appInst->make('Illuminate\Contracts\Console\Kernel')->shouldBeCalled();
+        $this->appInst->make('Illuminate\Contracts\Console\Kernel')->willReturn($console);
 
         $this->beConstructedWith(null, '.');
         $this->setMigrateDatabase(true);
