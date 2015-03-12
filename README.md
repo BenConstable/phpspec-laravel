@@ -58,6 +58,8 @@ extensions:
     - PhpSpec\Laravel\Extension\LaravelExtension
 ```
 
+You can take a look at [`example.phpspec.yml`](https://github.com/BenConstable/phpspec-laravel/blob/master/example.phpspec.yml) for a good set of sensible phpspec defaults for a Laravel project.
+
 ## Configuration
 
 ### Testing environment
@@ -124,7 +126,6 @@ and without extending from `PhpSpec\Laravel\LaravelObjectBehavior`:
 
 ```php
 <?php
-
 namespace spec\App;
 
 use PhpSpec\ObjectBehavior;
@@ -142,7 +143,6 @@ you'll get `Fatal error: Class 'Inspiring' not found...`. But extending from `Ph
 
 ```php
 <?php
-
 namespace spec\App;
 
 use PhpSpec\Laravel\LaravelObjectBehavior;
@@ -177,7 +177,6 @@ and without extending from `PhpSpec\Laravel\LaravelObjectBehavior`:
 
 ```php
 <?php
-
 namespace spec\App;
 
 use PhpSpec\ObjectBehavior;
@@ -196,7 +195,6 @@ But extending from `PhpSpec\Laravel\LaravelObjectBehavior`:
 
 ```php
 <?php
-
 namespace spec\App;
 
 use PhpSpec\Laravel\LaravelObjectBehavior;
