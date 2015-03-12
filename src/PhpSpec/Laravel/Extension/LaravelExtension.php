@@ -1,29 +1,29 @@
-<?php namespace PhpSpec\Laravel\Extension;
+<?php
+namespace PhpSpec\Laravel\Extension;
 
+use InvalidArgumentException;
+use PhpSpec\ServiceContainer;
 use PhpSpec\Extension\ExtensionInterface;
 use PhpSpec\Laravel\Listener\LaravelListener;
 use PhpSpec\Laravel\Runner\Maintainer\LaravelMaintainer;
 use PhpSpec\Laravel\Runner\Maintainer\PresenterMaintainer;
 use PhpSpec\Laravel\Util\Laravel;
-use PhpSpec\ServiceContainer;
-use Symfony\Component\Console\Application;
 
 /**
  * Setup the Laravel extension.
+ *
  * Bootstraps Laravel and sets up some objects in the Container.
  */
 class LaravelExtension implements ExtensionInterface
 {
-
     /**
      * Setup the Laravel extension.
      *
-     * @param \PhpSpec\ServiceContainer $container
+     * @param  \PhpSpec\ServiceContainer $container
      * @return void
      */
     public function load(ServiceContainer $container)
     {
-
         // Create & store Laravel wrapper
 
         $container->setShared(
@@ -31,30 +31,14 @@ class LaravelExtension implements ExtensionInterface
             function ($c) {
                 $config = $c->getParam('laravel_extension');
 
-                $environment = isset($config['testing_environment']) ? $config['testing_environment'] : null;
+                $laravel = new Laravel(
+                    isset($config['testing_environment']) ? $config['testing_environment'] : null,
+                    $this->getBootstrapPath(
+                        isset($config['framework_path']) ? $config['framework_path'] : null
+                    )
+                );
 
-                $path = isset($config['framework_path']) ? $config['framework_path'] : null;
-
-                $basePath = $this->getBasePath($path);
-
-                $this->validateBasePath($basePath);
-
-                $laravel = new Laravel($environment, $basePath);
-
-                if (!empty($config['http_kernel_class'])) {
-                    $laravel->setHttpKernelClass($config['http_kernel_class']);
-                }
-
-                if (!empty($config['console_kernel_class'])) {
-                    $laravel->setConsoleKernelClass($config['console_kernel_class']);
-                }
-
-                return $laravel
-                    ->setMigrateDatabase(isset($config['migrate_db']) ? $config['migrate_db'] : false)
-                    ->setSeedDatabase(
-                        isset($config['seed_db']) ? $config['seed_db'] : false,
-                        isset($config['seed_class']) ? $config['seed_class'] : null
-                    );
+                return $laravel;
             }
         );
 
@@ -92,56 +76,44 @@ class LaravelExtension implements ExtensionInterface
     }
 
     /**
-     * Get base path
+     * Get path to bootstrap file.
      *
-     * @param null $path
-     * @return null|string
+     * @param  null|string $path Optional bootstrap file path
+     * @return null|string       Bootstrap file path
      */
-    public function getBasePath($path = null)
+    private function getBootstrapPath($path = null)
     {
-        // The application we are testing is already laravel
         if (!$path) {
-            $path = dirname($this->getVendorPath());
-            // If not an absolute path
+            $path = dirname($this->getVendorPath()) . '/bootstrap/app.php';
         } elseif (!$this->isAbsolutePath($path)) {
-            // make relative to vendor dir
             $path = $this->getVendorPath() . '/' . $path;
+        }
+
+        if (!is_file($path)) {
+            throw new InvalidArgumentException("App bootstrap at `{$path}` not found.");
         }
 
         return $path;
     }
 
     /**
-     * Validate base path
+     * Check if the given path is absolute.
      *
-     * @param $path
+     * @param  $path   Path to check
+     * @return boolean True if absolute, false if not
      */
-    public function validateBasePath($path)
-    {
-        if (!is_dir($path)) {
-            throw new \InvalidArgumentException("Framework path `{$path}` not found.");
-        }
-    }
-
-    /**
-     * Is absolute path
-     *
-     * @param $path
-     * @return bool
-     */
-    public function isAbsolutePath($path)
+    private function isAbsolutePath($path)
     {
         return ($path !== null) && (strpos($path, '/') === 0);
     }
 
     /**
-     * Get vendor path
+     * Get path to vendor/ directory.
      *
-     * @return string
+     * @return string Absolute path to vendor directory
      */
-    public function getVendorPath()
+    private function getVendorPath()
     {
         return realpath(__DIR__ . '/../../../../../..');
     }
-
 }

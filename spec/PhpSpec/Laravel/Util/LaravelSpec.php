@@ -5,7 +5,6 @@ namespace spec\PhpSpec\Laravel\Util;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Illuminate\Foundation\Application;
-use Illuminate\Console\Application as Console;
 
 class LaravelSpec extends ObjectBehavior
 {
@@ -26,57 +25,6 @@ class LaravelSpec extends ObjectBehavior
     {
         $this->beConstructedWith('whatever', '.');
         $this->getEnv()->shouldBe('whatever');
-    }
-
-    function it_allows_to_set_and_get_the_kernel_classes()
-    {
-        $this->beConstructedWith(null, '.');
-        $this->setHttpKernelClass('Http')->getHttpKernelClass()->shouldReturn('Http');
-        $this->setConsoleKernelClass('Console')->getConsoleKernelClass()->shouldReturn('Console');
-    }
-    
-    function it_will_run_migrations_if_told_to(Console $console)
-    {
-        $console->call('migrate:install')->shouldBeCalled();
-        $console->call('migrate:refresh')->shouldBeCalled();
-
-        $this->appInst->make('artisan')->shouldBeCalled();
-        $this->appInst->make('artisan')->willReturn($console);
-
-        $this->beConstructedWith(null, '.');
-        $this->setMigrateDatabase(true);
-        $this->getMigrateDatabase()->shouldBe(true);
-        $this->refreshApplication($this->appInst);
-    }
-
-    function it_will_run_seeder_if_told_to(Console $console)
-    {
-        $console->call('migrate:install')->shouldBeCalled();
-        $console->call('migrate:refresh')->shouldBeCalled();
-        $console->call('db:seed', array('--class' => 'DatabaseSeeder'))->shouldBeCalled();
-
-        $this->appInst->make('artisan')->shouldBeCalled();
-        $this->appInst->make('artisan')->willReturn($console);
-
-        $this->beConstructedWith(null, '.');
-        $this->setMigrateDatabase(true);
-        $this->setSeedDatabase(true);
-        $this->refreshApplication($this->appInst);
-    }
-
-    function it_will_run_seeder_with_custom_class_if_told_to(Console $console)
-    {
-        $console->call('migrate:install')->shouldBeCalled();
-        $console->call('migrate:refresh')->shouldBeCalled();
-        $console->call('db:seed', array('--class' => 'MyDatabaseSeeder'))->shouldBeCalled();
-
-        $this->appInst->make('artisan')->shouldBeCalled();
-        $this->appInst->make('artisan')->willReturn($console);
-
-        $this->beConstructedWith(null, '.');
-        $this->setMigrateDatabase(true);
-        $this->setSeedDatabase(true, 'MyDatabaseSeeder');
-        $this->refreshApplication($this->appInst);
     }
 
     function it_allows_access_to_the_app()

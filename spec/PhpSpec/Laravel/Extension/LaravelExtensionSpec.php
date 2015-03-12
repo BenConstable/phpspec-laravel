@@ -53,27 +53,6 @@ class LaravelExtensionSpec extends ObjectBehavior
 
         $this->load($container);
     }
-    
-    function it_gets_application_base_path()
-    {
-        $folderAboveVendor = realpath(__DIR__ . '/../../../../../../..');
-        $this->getBasePath()->shouldBe($folderAboveVendor);
-    }
-
-    function it_gets_base_path_relative_to_vendor()
-    {
-        $this->getBasePath('laravel/laravel')->shouldEndWith('laravel/laravel');
-    }
-
-    function it_gets_absolute_base_path()
-    {
-        $this->getBasePath('/foo/bar')->shouldBe('/foo/bar');
-    }
-    
-    function it_throws_exception_if_base_path_is_not_found()
-    {
-        $this->shouldThrow('InvalidArgumentException')->during('validateBasePath', ['foo']);
-    }
 
     public function getMatchers()
     {
