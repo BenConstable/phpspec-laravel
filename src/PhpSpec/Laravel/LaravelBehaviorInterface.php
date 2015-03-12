@@ -1,4 +1,5 @@
-<?php namespace PhpSpec\Laravel;
+<?php
+namespace PhpSpec\Laravel;
 
 use PhpSpec\Laravel\Util\Laravel;
 use PhpSpec\Formatter\Presenter\PresenterInterface;

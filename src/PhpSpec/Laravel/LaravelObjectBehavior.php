@@ -1,4 +1,5 @@
-<?php namespace PhpSpec\Laravel;
+<?php
+namespace PhpSpec\Laravel;
 
 use PhpSpec\Formatter\Presenter\PresenterInterface;
 use PhpSpec\ObjectBehavior;
@@ -28,24 +29,26 @@ class LaravelObjectBehavior extends ObjectBehavior implements LaravelBehaviorInt
     /**
      * Bind Laravel wrapper to this behavior.
      *
-     * @param \PhpSpec\Laravel\Util\Laravel $laravel Laravel wrapper
+     * @param  \PhpSpec\Laravel\Util\Laravel $laravel Laravel wrapper
      * @return \PhpSpec\Laravel\LaravelObjectBehavior This
      */
     public function setLaravel(Laravel $laravel)
     {
         $this->laravel = $laravel;
+
         return $this;
     }
 
     /**
      * Bind the app Presenter to this behaviour.
      *
-     * @param \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
+     * @param  \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
      * @return \PhpSpec\Laravel\LaravelObjectBehavior This
      */
     public function setPresenter(PresenterInterface $presenter)
     {
         $this->presenter = $presenter;
+
         return $this;
     }
 }

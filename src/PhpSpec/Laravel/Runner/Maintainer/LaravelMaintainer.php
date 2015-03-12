@@ -1,11 +1,11 @@
-<?php namespace PhpSpec\Laravel\Runner\Maintainer;
+<?php
+namespace PhpSpec\Laravel\Runner\Maintainer;
 
 use PhpSpec\Loader\Node\ExampleNode;
 use PhpSpec\Runner\CollaboratorManager;
 use PhpSpec\Runner\MatcherManager;
 use PhpSpec\Runner\Maintainer\MaintainerInterface;
 use PhpSpec\SpecificationInterface;
-
 use PhpSpec\Laravel\Util\Laravel;
 
 /**
@@ -24,7 +24,7 @@ class LaravelMaintainer implements MaintainerInterface {
     /**
      * Constructor.
      *
-     * @param \PhpSpec\Laravel\Util\Laravel $laravel
+     * @param  \PhpSpec\Laravel\Util\Laravel $laravel
      * @return void
      */
     public function __construct(Laravel $laravel)
@@ -37,7 +37,7 @@ class LaravelMaintainer implements MaintainerInterface {
      *
      * Will check for the `setLaravel` method.
      *
-     * @param \PhpSpec\Loader\Node\ExampleNode $example
+     * @param  \PhpSpec\Loader\Node\ExampleNode $example
      * @return boolean
      */
     public function supports(ExampleNode $example)
@@ -50,13 +50,7 @@ class LaravelMaintainer implements MaintainerInterface {
     }
 
     /**
-     * Prepare the node using this maintainer.
-     *
-     * @param \PhpSpec\Loader\Node\ExampleNode    $example
-     * @param \PhpSpec\SpecificationInterface     $context
-     * @param \PhpSpec\Runner\MatcherManager      $matchers
-     * @param \PhpSpec\Runner\CollaboratorManager $collaborators
-     * @return void
+     * {@inheritdoc}
      */
     public function prepare(ExampleNode $example, SpecificationInterface $context,
                             MatcherManager $matchers, CollaboratorManager $collaborators)
@@ -71,13 +65,7 @@ class LaravelMaintainer implements MaintainerInterface {
     }
 
     /**
-     * Teardown the functionality on the node applied by this maintainer.
-     *
-     * @param \PhpSpec\Loader\Node\ExampleNode    $example
-     * @param \PhpSpec\SpecificationInterface     $context
-     * @param \PhpSpec\Runner\MatcherManager      $matchers
-     * @param \PhpSpec\Runner\CollaboratorManager $collaborators
-     * @return void
+     * {@inheritdoc}
      */
     public function teardown(ExampleNode $example, SpecificationInterface $context,
                              MatcherManager $matchers, CollaboratorManager $collaborators)

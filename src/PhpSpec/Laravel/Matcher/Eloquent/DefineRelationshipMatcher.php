@@ -1,4 +1,5 @@
-<?php namespace PhpSpec\Laravel\Matcher\Eloquent;
+<?php
+namespace PhpSpec\Laravel\Matcher\Eloquent;
 
 use PhpSpec\Formatter\Presenter\PresenterInterface;
 use PhpSpec\Matcher\BasicMatcher;
@@ -10,7 +11,6 @@ use PhpSpec\Exception\Example\FailureException;
  * Usage:
  *
  * $this->relation()->shouldDefineRelationship('belongsTo', 'OtherModel');
- *
  */
 class DefineRelationshipMatcher extends BasicMatcher {
 
@@ -22,7 +22,7 @@ class DefineRelationshipMatcher extends BasicMatcher {
     /**
      * Constructor.
      *
-     * @param \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
+     * @param  \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
      * @return void
      */
     public function __construct(PresenterInterface $presenter)
@@ -33,11 +33,10 @@ class DefineRelationshipMatcher extends BasicMatcher {
     /**
      * Checks if matcher supports provided subject and matcher name.
      *
-     * @param string $name
-     * @param mixed  $subject
-     * @param array  $arguments
-     *
-     * @return Boolean
+     * @param  string  $name
+     * @param  mixed   $subject
+     * @param  array   $arguments
+     * @return boolean
      */
     public function supports($name, $subject, array $arguments)
     {
@@ -48,9 +47,8 @@ class DefineRelationshipMatcher extends BasicMatcher {
      * Check if the given subject is an Eloquent relationship of the expected
      * type.
      *
-     * @param mixed $subject
-     * @param array $arguments
-     *
+     * @param  mixed   $subject
+     * @param  array   $arguments
      * @return boolean
      */
     protected function matches($subject, array $arguments)
@@ -69,11 +67,7 @@ class DefineRelationshipMatcher extends BasicMatcher {
     }
 
     /**
-     * @param string $name
-     * @param mixed  $subject
-     * @param array  $arguments
-     *
-     * @return FailureException
+     * {@inheritdoc}
      */
     protected function getFailureException($name, $subject, array $arguments)
     {
@@ -86,11 +80,7 @@ class DefineRelationshipMatcher extends BasicMatcher {
     }
 
     /**
-     * @param string $name
-     * @param mixed  $subject
-     * @param array  $arguments
-     *
-     * @return FailureException
+     * {@inheritdoc}
      */
     protected function getNegativeFailureException($name, $subject, array $arguments)
     {

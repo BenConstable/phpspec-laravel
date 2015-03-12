@@ -1,4 +1,5 @@
-<?php namespace PhpSpec\Laravel\Runner\Maintainer;
+<?php
+namespace PhpSpec\Laravel\Runner\Maintainer;
 
 use PhpSpec\Formatter\Presenter\PresenterInterface;
 use PhpSpec\Loader\Node\ExampleNode;
@@ -20,7 +21,7 @@ class PresenterMaintainer implements MaintainerInterface {
     /**
      * Constructor.
      *
-     * @param \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
+     * @param  \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
      * @return void
      */
     public function __construct(PresenterInterface $presenter)
@@ -33,7 +34,7 @@ class PresenterMaintainer implements MaintainerInterface {
      *
      * Will check for the `setPresenter` method.
      *
-     * @param \PhpSpec\Loader\Node\ExampleNode $example
+     * @param  \PhpSpec\Loader\Node\ExampleNode $example
      * @return boolean
      */
     public function supports(ExampleNode $example)
@@ -46,13 +47,7 @@ class PresenterMaintainer implements MaintainerInterface {
     }
 
     /**
-     * Prepare the node using this maintainer.
-     *
-     * @param \PhpSpec\Loader\Node\ExampleNode    $example
-     * @param \PhpSpec\SpecificationInterface     $context
-     * @param \PhpSpec\Runner\MatcherManager      $matchers
-     * @param \PhpSpec\Runner\CollaboratorManager $collaborators
-     * @return void
+     * {@inheritdoc}
      */
     public function prepare(ExampleNode $example, SpecificationInterface $context,
                             MatcherManager $matchers, CollaboratorManager $collaborators)
@@ -67,13 +62,7 @@ class PresenterMaintainer implements MaintainerInterface {
     }
 
     /**
-     * Teardown the functionality on the node applied by this maintainer.
-     *
-     * @param \PhpSpec\Loader\Node\ExampleNode    $example
-     * @param \PhpSpec\SpecificationInterface     $context
-     * @param \PhpSpec\Runner\MatcherManager      $matchers
-     * @param \PhpSpec\Runner\CollaboratorManager $collaborators
-     * @return void
+     * {@inheritdoc}
      */
     public function teardown(ExampleNode $example, SpecificationInterface $context,
                              MatcherManager $matchers, CollaboratorManager $collaborators)

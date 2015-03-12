@@ -1,8 +1,8 @@
-<?php namespace PhpSpec\Laravel\Listener;
+<?php
+namespace PhpSpec\Laravel\Listener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use PhpSpec\Event\SpecificationEvent;
-
 use PhpSpec\Laravel\Util\Laravel;
 
 /**
@@ -22,7 +22,7 @@ class LaravelListener implements EventSubscriberInterface {
     /**
      * Constructor.
      *
-     * @param \PhpSpec\Laravel\Util\Laravel $laravel
+     * @param  \PhpSpec\Laravel\Util\Laravel $laravel
      * @return void
      */
     public function __construct(Laravel $laravel)
@@ -31,9 +31,7 @@ class LaravelListener implements EventSubscriberInterface {
     }
 
     /**
-     * Get the events that this listener will listen to.
-     *
-     * @return array Events hash
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
@@ -45,7 +43,7 @@ class LaravelListener implements EventSubscriberInterface {
     /**
      * Run the `beforeSpecification` hook.
      *
-     * @param \PhpSpec\Event\SpecificationEvent $event
+     * @param  \PhpSpec\Event\SpecificationEvent $event
      * @return void
      */
     public function beforeSpecification(SpecificationEvent $event)

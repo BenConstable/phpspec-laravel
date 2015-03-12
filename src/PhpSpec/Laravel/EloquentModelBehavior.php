@@ -1,4 +1,5 @@
-<?php namespace PhpSpec\Laravel;
+<?php
+namespace PhpSpec\Laravel;
 
 use PhpSpec\Exception\Fracture;
 
@@ -23,7 +24,7 @@ class EloquentModelBehavior extends LaravelObjectBehavior {
     /**
      * Wrapper to prevent unwanted overloading.
      *
-     * @param mixed $args
+     * @param  mixed $args
      * @return void
      */
     public function beConstructedWith()
