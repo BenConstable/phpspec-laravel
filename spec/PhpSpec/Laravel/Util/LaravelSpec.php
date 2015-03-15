@@ -26,17 +26,4 @@ class LaravelSpec extends ObjectBehavior
         $this->beConstructedWith('whatever', '.');
         $this->getEnv()->shouldBe('whatever');
     }
-
-    function it_allows_access_to_the_app()
-    {
-        $this->beConstructedWith(null, '.', false);
-        $this->refreshApplication($this->appInst);
-        $this->app->shouldHaveType('Illuminate\Foundation\Application');
-    }
-
-    function it_throws_an_exception_when_trying_to_get_inaccessible_vars()
-    {
-        $this->beConstructedWith(null, '.', false);
-        $this->shouldThrow('ErrorException')->during('__get', array('inaccessible'));
-    }
 }

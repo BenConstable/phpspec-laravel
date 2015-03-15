@@ -2,7 +2,6 @@
 namespace PhpSpec\Laravel\Util;
 
 use Carbon\Carbon;
-use ErrorException;
 use Illuminate\Foundation\Application;
 
 /**
@@ -102,26 +101,5 @@ class Laravel
         Carbon::setTestNow(Carbon::now());
 
         return $app;
-    }
-
-    /**
-     * Provide public access to the $app variable.
-     *
-     * Throw an exception if attempting to get anything else.
-     *
-     * @param  string          $name Name of variable to get
-     * @return mixed                 Variable value
-     *
-     * @throws \ErrorException       If attempting to get something other than $app
-     */
-    public function __get($name)
-    {
-        if ($name === 'app') {
-            return $this->app;
-        }
-
-        throw new ErrorException(
-            "Attempting to get inaccessible or undefined property $name"
-        );
     }
 }
