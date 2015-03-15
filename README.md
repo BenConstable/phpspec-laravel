@@ -15,7 +15,7 @@ Add this to your `composer.json`:
 ```json
 {
     "require-dev": {
-        "benconstable/phpspec-laravel": "~2.0@dev"
+        "benconstable/phpspec-laravel": "~2.0"
     }
 }
 ```
@@ -228,5 +228,6 @@ and covers the basics of writing tests (and it's free!).
 
 ## Thanks
 
-* Thanks to [@obrignoni](https://github.com/obrignoni) for his great work in
-getting this extension working with Laravel 5
+Thanks to [@obrignoni](https://github.com/obrignoni) for his great work in
+getting this extension working with Laravel 5, to all of the [other contributors](https://github.com/BenConstable/phpspec-laravel/graphs/contributors) and to everyone who's reported
+issues and bugs with the project.
