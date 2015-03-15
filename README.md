@@ -3,41 +3,10 @@
 [![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
 [![Latest Stable Version](https://poser.pugx.org/benconstable/phpspec-laravel/v/stable.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 [![Total Downloads](https://poser.pugx.org/benconstable/phpspec-laravel/downloads.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
+[![License](https://poser.pugx.org/benconstable/phpspec-laravel/license.svg)](https://packagist.org/packages/benconstable/phpspec-laravel)
 
 [phpspec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
 applications.
-
-## Laravel 4
-
-phpspec-laravel development is now targeted at Laravel 5. For use with Laravel
-4, please install the latest `1.x` release.
-
-## Why this extension?
-
-This extension provides you with a bootstrapped Laravel environment when writing
-your phpspec tests.
-
-In detail,
-
-**it:**
-
-* Bootstraps the Laravel environment, so that you can use class aliases across
-your application without running into to testing trouble, and so that you can
-make use of Laravel's environment configuration for your testing environment.
-You will also continue to be able to use Laravel's helper functions across your
-codebase
-* Allows you to test your Eloquent models, which I ran into difficulty with
-before writing this extension
-* Provides a few extra Laravel-specific phpspec matchers to make testing your
-application code more straightforward
-
-and
-
-**it is not:**
-
-* A swap-in replacement for Laravel's built in PHPUnit setup. If you'd like
-integration and/or functional tests, please use that, [Behat](http://behat.org/),
-or [Codeception](http://codeception.com/)
 
 ## Installation
 
@@ -59,6 +28,41 @@ extensions:
 ```
 
 You can take a look at [`example.phpspec.yml`](https://github.com/BenConstable/phpspec-laravel/blob/master/example.phpspec.yml) for a good set of sensible phpspec defaults for a Laravel project.
+
+#### Laravel 4
+
+phpspec-laravel development is now targeted at Laravel 5. For use with Laravel
+4, please install the latest `1.x` release.
+
+## Why this extension?
+
+This extension provides you with a bootstrapped Laravel environment when writing
+your phpspec tests.
+
+It allows you to make use of some of the nice features that Laravel provides, like
+[class aliases](https://github.com/laravel/laravel/blob/master/config/app.php#L161)
+and [helper functions](http://laravel.com/docs/5.0/helpers), without being
+hindered by your testing framework.
+
+This extension **is not** a swap-in replacement for Laravel's built in PHPUnit setup.
+If you'd like integration and/or functional tests, please use that,
+[Behat](http://behat.org/), or [Codeception](http://codeception.com/).
+
+#### A note on the database and Eloquent
+
+This extension previously provided the ability to migrate and seed the database,
+and also provided functionality to make testing Eloquent models easier.
+
+With version 2.0 (for Laravel 5), the database functionality has been removed.
+Testing the database layer is beyond the scope of phpspec, and so in order to
+encourage best practices these database commands have been removed. You should use
+PHPUnit or similar to run integration tests on your database.
+
+Unfortunately, with Laravel 5 the previous functionality that made
+[testing Eloquent models](https://github.com/BenConstable/phpspec-laravel/tree/laravel-4#testing-eloquent-models) easier and provided a [custom matcher for testing relationships](https://github.com/BenConstable/phpspec-laravel/tree/laravel-4#custom-matchers) has become much more difficult to implement
+without hitting the database. I've had to remove it for now, but I will try to
+add it in again at a later date. Regardless, you should try to keep business
+logic out of models and test your database layer using integration tests.
 
 ## Configuration
 
@@ -93,17 +97,17 @@ to the `vendor/` directory.
 
 ## Usage
 
-### Test as normal
+### Testing without Laravel
 
 If you're not using any code specific to the Laravel environment, then you don't
 need to do anything differently. Just write your phpspec tests as normal!
 
-### A header
+### Testing with Laravel
 
-If you want to take advantage of Laravel's aliases, or use some of
+If you want to take advantage of Laravel's aliases, or use some of its
 [helper functions](http://laravel.com/docs/5.0/helpers), extend your specs
-from `PhpSpec\Laravel\LaravelObjectBehavior`. This will stop the errors you'll
-typically see.
+from `PhpSpec\Laravel\LaravelObjectBehavior`. This will prevent errors when
+testing.
 
 **For example, this class uses an alias:**
 
@@ -210,80 +214,17 @@ class MyEncryptor extends LaravelObjectBehavior
 
 you'll get `✔ encrypts a string`.
 
-### Testing Eloquent models
-
-You should test your Eloquent models by extending the `PhpSpec\Laravel\EloquentModelBehavior`
-class:
-
-```php
-<?php
-namespace spec;
-
-use PhpSpec\Laravel\EloquentModelBehavior;
-
-class MyPostModelSpec extends EloquentModelBehavior {
-
-    public function it_should_have_comments()
-    {
-        $this->comments()->shouldDefineRelationship('hasMany', 'Comment');
-    }
-}
-```
-
 ### Accessing the IoC container
 
-You shouldn't need to, but just in case, the booted Laravel IoC container can
-be accessed like:
+If you need to access the [Service Container](http://laravel.com/docs/5.0/container)
+in your specs, just use the `app()` helper!
 
-```php
-<?php
+## Learning more about phpspec and Laravel
 
-$this->laravel->app['variable'];
-```
-
-in your specs.
-
-## Custom Matchers
-
-Some custom matchers are provided for convenience, feel free to ignore them
-completely!
-
-### DefineRelationshipMatcher
-
-This matcher lets you check for the existence of a valid Eloquent relationship.
-
-#### Usage
-
-`should[Not]DefineRelationship('relationshipType', 'Related\Class')`
-
-**Example**
-
-```php
-<?php
-namespace spec;
-
-use PhpSpec\Laravel\EloquentModelBehavior;
-
-class MyPostModelSpec extends EloquentModelBehavior {
-
-    public function it_should_have_comments()
-    {
-        $this->comments()->shouldDefineRelationship('hasMany', 'Comment');
-    }
-}
-```
-
-## Further reading
-
-The following articles/websites have been useful to me when developing this
-extension:
-
-* [This issue](https://github.com/phpspec/phpspec/issues/299) on the phpspec
-repo was a good help and is an interesting read
-* Taylor Otwell's [video](http://taylorotwell.com/full-ioc-unit-testing-with-laravel/)
-on DI and unit testing in Laravel was helpful in understanding the best way to
-use phpspec
-* [Laracasts](https://laracasts.com/) has some great posts and guides on phpspec and Laravel
+[Laracasts](https://laracasts.com/) has some great guides on phpspec and Laravel.
+['Laravel, phpspec and refactoring'](https://laracasts.com/lessons/phpspec-laravel-and-refactoring)
+is a good starting point; it shows how you should use phpspec with Laravel,
+and covers the basics of writing tests (and it's free!).
 
 ## Thanks
 
