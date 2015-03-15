@@ -11,8 +11,8 @@ use PhpSpec\SpecificationInterface;
 /**
  * This maintainer is used to bind the app Presenter to behaviours.
  */
-class PresenterMaintainer implements MaintainerInterface {
-
+class PresenterMaintainer implements MaintainerInterface
+{
     /**
      * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */

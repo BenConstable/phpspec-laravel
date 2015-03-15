@@ -12,8 +12,8 @@ use PhpSpec\Laravel\Util\Laravel;
  * This maintainer is used to bind the Laravel wrapper to nodes that implement
  * the `setLaravel` method.
  */
-class LaravelMaintainer implements MaintainerInterface {
-
+class LaravelMaintainer implements MaintainerInterface
+{
     /**
      * Laravel wrapper.
      *

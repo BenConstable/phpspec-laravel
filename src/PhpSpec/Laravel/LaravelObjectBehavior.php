@@ -10,8 +10,8 @@ use PhpSpec\Laravel\Util\Laravel;
  * This behavior should be the base behavior for all of your regular PhpSpec
  * behaviors within your Larvel application.
  */
-class LaravelObjectBehavior extends ObjectBehavior implements LaravelBehaviorInterface {
-
+class LaravelObjectBehavior extends ObjectBehavior implements LaravelBehaviorInterface
+{
     /**
      * Laravel wrapper.
      *

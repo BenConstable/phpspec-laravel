@@ -8,8 +8,8 @@ use PhpSpec\Formatter\Presenter\PresenterInterface;
  * Behaviours that implements this interface should provide a public method
  * with which to bind the Laravel wrapper instance.
  */
-interface LaravelBehaviorInterface {
-
+interface LaravelBehaviorInterface
+{
     /**
      * Bind Laravel wrapper to the implementing object.
      *

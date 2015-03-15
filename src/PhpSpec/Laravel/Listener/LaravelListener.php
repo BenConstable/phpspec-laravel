@@ -10,8 +10,8 @@ use PhpSpec\Laravel\Util\Laravel;
  *
  * This only applies to specs that implement the LaravelBehaviorInterface.
  */
-class LaravelListener implements EventSubscriberInterface {
-
+class LaravelListener implements EventSubscriberInterface
+{
     /**
      * Laravel wrapper.
      *
