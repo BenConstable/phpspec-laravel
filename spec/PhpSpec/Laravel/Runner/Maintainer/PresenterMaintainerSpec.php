@@ -12,22 +12,21 @@ use Prophecy\Argument;
 use PhpSpec\Loader\Node\ExampleNode;
 use PhpSpec\Runner\CollaboratorManager;
 use PhpSpec\Runner\MatcherManager;
-use PhpSpec\Runner\Maintainer\MaintainerInterface;
-use PhpSpec\SpecificationInterface;
-use PhpSpec\Formatter\Presenter\PresenterInterface;
+use PhpSpec\Specification;
+use PhpSpec\Formatter\Presenter\Presenter;
 
 class PresenterMaintainerSpec extends ObjectBehavior
 {
     private $refMethod;
 
-    function let(PresenterInterface $presenter, ExampleNode $example, SpecificationInterface $context)
+    function let(Presenter $presenter, ExampleNode $example, Specification $context)
     {
         $this->beConstructedWith($presenter);
 
         $p = new Prophet;
 
         $this->refMethod = $p->prophesize('ReflectionMethod');
-        $this->refMethod->invokeArgs(Argument::type('PhpSpec\SpecificationInterface'), Argument::type('array'))->shouldBeCalled();
+        $this->refMethod->invokeArgs(Argument::type('PhpSpec\Specification'), Argument::type('array'))->shouldBeCalled();
 
         $refClass = $p->prophesize('ReflectionClass');
 
@@ -45,7 +44,7 @@ class PresenterMaintainerSpec extends ObjectBehavior
 
     function it_is_a_maintainer()
     {
-        $this->shouldHaveType('PhpSpec\Runner\Maintainer\MaintainerInterface');
+        $this->shouldHaveType('PhpSpec\Runner\Maintainer\Maintainer');
     }
 
     function it_supports_objects_with_a_setPresenter_method(ExampleNode $example)
@@ -53,12 +52,12 @@ class PresenterMaintainerSpec extends ObjectBehavior
         $this->supports($example)->shouldBe(true);
     }
 
-    function it_sets_a_presenter_object_on_a_spec(ExampleNode $example, SpecificationInterface $context, MatcherManager $matchers, CollaboratorManager $collaborators)
+    function it_sets_a_presenter_object_on_a_spec(ExampleNode $example, Specification $context, MatcherManager $matchers, CollaboratorManager $collaborators)
     {
         $this->prepare($example, $context, $matchers, $collaborators);
     }
 
-    function it_doesnt_tear_down_anything(ExampleNode $example, SpecificationInterface $context, MatcherManager $matchers, CollaboratorManager $collaborators)
+    function it_doesnt_tear_down_anything(ExampleNode $example, Specification $context, MatcherManager $matchers, CollaboratorManager $collaborators)
     {
         $this->teardown($example, $context, $matchers, $collaborators);
     }

@@ -4,8 +4,8 @@ namespace PhpSpec\Laravel\Runner\Maintainer;
 use PhpSpec\Loader\Node\ExampleNode;
 use PhpSpec\Runner\CollaboratorManager;
 use PhpSpec\Runner\MatcherManager;
-use PhpSpec\Runner\Maintainer\MaintainerInterface;
-use PhpSpec\SpecificationInterface;
+use PhpSpec\Runner\Maintainer\Maintainer as MaintainerInterface;
+use PhpSpec\Specification as SpecificationInterface;
 use PhpSpec\Laravel\Util\Laravel;
 
 /**

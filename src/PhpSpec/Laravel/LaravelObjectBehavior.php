@@ -1,7 +1,7 @@
 <?php
 namespace PhpSpec\Laravel;
 
-use PhpSpec\Formatter\Presenter\PresenterInterface;
+use PhpSpec\Formatter\Presenter\Presenter as PresenterInterface;
 use PhpSpec\ObjectBehavior;
 use PhpSpec\Wrapper\Subject;
 use PhpSpec\Laravel\Util\Laravel;
@@ -22,7 +22,7 @@ class LaravelObjectBehavior extends ObjectBehavior implements LaravelBehaviorInt
     /**
      * App presenter.
      *
-     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\Presenter
      */
     protected $presenter;
 
@@ -42,7 +42,7 @@ class LaravelObjectBehavior extends ObjectBehavior implements LaravelBehaviorInt
     /**
      * Bind the app Presenter to this behaviour.
      *
-     * @param  \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
+     * @param  \PhpSpec\Formatter\Presenter\Presenter $presenter
      * @return \PhpSpec\Laravel\LaravelObjectBehavior This
      */
     public function setPresenter(PresenterInterface $presenter)
