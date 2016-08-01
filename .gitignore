@@ -3,5 +3,7 @@ vendor/*
 composer.lock
 
 # Dev
-
 bin/
+
+# Misc.
+.idea/
