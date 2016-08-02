@@ -25,13 +25,11 @@ class LaravelExtension implements ExtensionInterface
 
         $container->define(
             'laravel',
-            function ($c) {
-                $config = $c->getParam('laravel_extension');
-
+            function ($c) use ($params) {
                 $laravel = new Laravel(
-                    isset($config['testing_environment']) ? $config['testing_environment'] : null,
+                    isset($params['testing_environment']) ? $params['testing_environment'] : null,
                     $this->getBootstrapPath(
-                        isset($config['framework_path']) ? $config['framework_path'] : null
+                        isset($params['framework_path']) ? $params['framework_path'] : null
                     )
                 );
 
