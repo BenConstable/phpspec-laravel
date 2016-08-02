@@ -1,6 +1,6 @@
 # phpspec Laravel Extension
 
-> [phpspec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
+> [phpspec](http://www.phpspec.net/) extension for testing [Laravel](http://laravel.com/)
   applications.
   
 [![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.svg?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
@@ -239,8 +239,19 @@ in your specs, just use the `app()` helper!
 is a good starting point; it shows how you should use phpspec with Laravel,
 and covers the basics of writing tests (and it's free!).
 
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/BenConstable/phpspec-laravel/blob/master/CONTRIBUTING.md).
+
+## License
+
+MIT &copy; Ben Constable. See [LICENSE](https://github.com/BenConstable/phpspec-laravel/blob/master/LICENSE) for more info.
+
 ## Thanks
 
-Thanks to [@obrignoni](https://github.com/obrignoni) for his great work in
-getting this extension working with Laravel 5, to all of the [other contributors](https://github.com/BenConstable/phpspec-laravel/graphs/contributors) and to everyone who's reported
-issues and bugs with the project.
+Thanks to...
+
+* [@obrignoni](https://github.com/obrignoni) for their great work in getting this extension working with Laravel 5
+* [@Sam-Burns](https://github.com/Sam-Burns) for their great work in getting this extension working with Phpspec v3
+* All of the [other contributors](https://github.com/BenConstable/phpspec-laravel/graphs/contributors) and to everyone that's
+reported issues and bugs with the project
