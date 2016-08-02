@@ -30,7 +30,7 @@ class LaravelExtensionSpec extends ObjectBehavior
     function it_registers_the_laravel_maintainer(ServiceContainer $container)
     {
         $container
-            ->define('runner.maintainers.laravel', Argument::type('Closure'))
+            ->define('runner.maintainers.laravel', Argument::type('Closure'), Argument::type('array'))
             ->shouldBeCalled();
 
         $this->load($container, []);
@@ -39,7 +39,7 @@ class LaravelExtensionSpec extends ObjectBehavior
     function it_registers_the_presenter_maintainer(ServiceContainer $container)
     {
         $container
-            ->define('runner.maintainers.presenter', Argument::type('Closure'))
+            ->define('runner.maintainers.presenter', Argument::type('Closure'), Argument::type('array'))
             ->shouldBeCalled();
 
         $this->load($container, []);
@@ -48,7 +48,7 @@ class LaravelExtensionSpec extends ObjectBehavior
     function it_registers_the_laravel_listener(ServiceContainer $container)
     {
         $container
-            ->define('event_dispatcher.listeners.laravel', Argument::type('Closure'))
+            ->define('event_dispatcher.listeners.laravel', Argument::type('Closure'), Argument::type('array'))
             ->shouldBeCalled();
 
         $this->load($container, []);
