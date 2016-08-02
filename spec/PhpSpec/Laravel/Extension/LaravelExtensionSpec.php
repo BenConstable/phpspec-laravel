@@ -10,7 +10,7 @@ class LaravelExtensionSpec extends ObjectBehavior
 {
     function let(ServiceContainer $container)
     {
-        $container->setShared(Argument::cetera())->willReturn();
+        $container->define(Argument::cetera())->willReturn();
     }
 
     function it_is_a_phpspec_extension()
@@ -21,37 +21,37 @@ class LaravelExtensionSpec extends ObjectBehavior
     function it_registers_the_laravel_kernel(ServiceContainer $container)
     {
         $container
-            ->setShared('laravel', Argument::type('Closure'))
+            ->define('laravel', Argument::type('Closure'))
             ->shouldBeCalled();
 
-        $this->load($container);
+        $this->load($container, []);
     }
 
     function it_registers_the_laravel_maintainer(ServiceContainer $container)
     {
         $container
-            ->setShared('runner.maintainers.laravel', Argument::type('Closure'))
+            ->define('runner.maintainers.laravel', Argument::type('Closure'))
             ->shouldBeCalled();
 
-        $this->load($container);
+        $this->load($container, []);
     }
 
     function it_registers_the_presenter_maintainer(ServiceContainer $container)
     {
         $container
-            ->setShared('runner.maintainers.presenter', Argument::type('Closure'))
+            ->define('runner.maintainers.presenter', Argument::type('Closure'))
             ->shouldBeCalled();
 
-        $this->load($container);
+        $this->load($container, []);
     }
 
     function it_registers_the_laravel_listener(ServiceContainer $container)
     {
         $container
-            ->setShared('event_dispatcher.listeners.laravel', Argument::type('Closure'))
+            ->define('event_dispatcher.listeners.laravel', Argument::type('Closure'))
             ->shouldBeCalled();
 
-        $this->load($container);
+        $this->load($container, []);
     }
 
     public function getMatchers()

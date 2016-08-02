@@ -17,16 +17,13 @@ use PhpSpec\Laravel\Util\Laravel;
 class LaravelExtension implements ExtensionInterface
 {
     /**
-     * Setup the Laravel extension.
-     *
-     * @param  \PhpSpec\ServiceContainer $container
-     * @return void
+     * {@inheritdoc}
      */
-    public function load(ServiceContainer $container)
+    public function load(ServiceContainer $container, array $params)
     {
         // Create & store Laravel wrapper
 
-        $container->setShared(
+        $container->define(
             'laravel',
             function ($c) {
                 $config = $c->getParam('laravel_extension');
@@ -44,7 +41,7 @@ class LaravelExtension implements ExtensionInterface
 
         // Bootstrap maintainer to bind Laravel wrapper to specs
 
-        $container->setShared(
+        $container->define(
             'runner.maintainers.laravel',
             function ($c) {
                 return new LaravelMaintainer(
@@ -56,7 +53,7 @@ class LaravelExtension implements ExtensionInterface
         // Bootstrap maintainer to bind app Presenter to specs, so it
         // can be passed to custom matchers
 
-        $container->setShared(
+        $container->define(
             'runner.maintainers.presenter',
             function ($c) {
                 return new PresenterMaintainer(
@@ -67,7 +64,7 @@ class LaravelExtension implements ExtensionInterface
 
         // Bootstrap listener to setup Laravel application for specs
 
-        $container->setShared(
+        $container->define(
             'event_dispatcher.listeners.laravel',
             function ($c) {
                 return new LaravelListener($c->get('laravel'));
