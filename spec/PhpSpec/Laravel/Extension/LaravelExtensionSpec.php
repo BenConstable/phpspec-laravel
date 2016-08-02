@@ -15,7 +15,7 @@ class LaravelExtensionSpec extends ObjectBehavior
 
     function it_is_a_phpspec_extension()
     {
-        $this->shouldHaveType('PhpSpec\Extension\ExtensionInterface');
+        $this->shouldHaveType('PhpSpec\Extension');
     }
 
     function it_registers_the_laravel_kernel(ServiceContainer $container)

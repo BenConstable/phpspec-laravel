@@ -1,12 +1,12 @@
 <?php
 namespace PhpSpec\Laravel\Runner\Maintainer;
 
-use PhpSpec\Formatter\Presenter\PresenterInterface;
+use PhpSpec\Formatter\Presenter\Presenter as PresenterInterface;
 use PhpSpec\Loader\Node\ExampleNode;
 use PhpSpec\Runner\CollaboratorManager;
 use PhpSpec\Runner\MatcherManager;
-use PhpSpec\Runner\Maintainer\MaintainerInterface;
-use PhpSpec\SpecificationInterface;
+use PhpSpec\Runner\Maintainer\Maintainer as MaintainerInterface;
+use PhpSpec\Specification as SpecificationInterface;
 
 /**
  * This maintainer is used to bind the app Presenter to behaviours.
@@ -14,14 +14,14 @@ use PhpSpec\SpecificationInterface;
 class PresenterMaintainer implements MaintainerInterface
 {
     /**
-     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\Presenter
      */
     private $presenter;
 
     /**
      * Constructor.
      *
-     * @param  \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
+     * @param  \PhpSpec\Formatter\Presenter\Presenter $presenter
      * @return void
      */
     public function __construct(PresenterInterface $presenter)

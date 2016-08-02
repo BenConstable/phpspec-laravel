@@ -3,7 +3,7 @@ namespace PhpSpec\Laravel\Extension;
 
 use InvalidArgumentException;
 use PhpSpec\ServiceContainer;
-use PhpSpec\Extension\ExtensionInterface;
+use PhpSpec\Extension as ExtensionInterface;
 use PhpSpec\Laravel\Listener\LaravelListener;
 use PhpSpec\Laravel\Runner\Maintainer\LaravelMaintainer;
 use PhpSpec\Laravel\Runner\Maintainer\PresenterMaintainer;

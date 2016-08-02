@@ -4,7 +4,7 @@ namespace spec\PhpSpec\Laravel;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use PhpSpec\Formatter\Presenter\PresenterInterface;
+use PhpSpec\Formatter\Presenter\Presenter;
 use PhpSpec\Laravel\Util\Laravel;
 
 class LaravelObjectBehaviorSpec extends ObjectBehavior
@@ -20,7 +20,7 @@ class LaravelObjectBehaviorSpec extends ObjectBehavior
         $this->setLaravel($laravel)->shouldHaveType('PhpSpec\Laravel\LaravelObjectBehavior');
     }
 
-    function it_accepts_a_presenter(PresenterInterface $presenter)
+    function it_accepts_a_presenter(Presenter $presenter)
     {
         $this->setPresenter($presenter)->shouldHaveType('PhpSpec\Laravel\LaravelObjectBehavior');
     }

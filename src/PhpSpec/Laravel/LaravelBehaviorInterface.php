@@ -2,7 +2,7 @@
 namespace PhpSpec\Laravel;
 
 use PhpSpec\Laravel\Util\Laravel;
-use PhpSpec\Formatter\Presenter\PresenterInterface;
+use PhpSpec\Formatter\Presenter\Presenter as PresenterInterface;
 
 /**
  * Behaviours that implements this interface should provide a public method
@@ -20,7 +20,7 @@ interface LaravelBehaviorInterface
     /**
      * Bind the app Presenter to the implementing object.
      *
-     * @param \PhpSpec\Formatter\Presenter\PresenterInterface $presenter
+     * @param \PhpSpec\Formatter\Presenter\Presenter $presenter
      */
     public function setPresenter(PresenterInterface $presenter);
 }
