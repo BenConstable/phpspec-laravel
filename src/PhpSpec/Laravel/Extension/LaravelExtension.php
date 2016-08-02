@@ -45,7 +45,8 @@ class LaravelExtension implements ExtensionInterface
                 return new LaravelMaintainer(
                     $c->get('laravel')
                 );
-            }
+            },
+            ['runner.maintainers']
         );
 
         // Bootstrap maintainer to bind app Presenter to specs, so it
@@ -57,7 +58,8 @@ class LaravelExtension implements ExtensionInterface
                 return new PresenterMaintainer(
                     $c->get('formatter.presenter')
                 );
-            }
+            },
+            ['runner.maintainers']
         );
 
         // Bootstrap listener to setup Laravel application for specs
@@ -66,7 +68,8 @@ class LaravelExtension implements ExtensionInterface
             'event_dispatcher.listeners.laravel',
             function ($c) {
                 return new LaravelListener($c->get('laravel'));
-            }
+            },
+            ['event_dispatcher.listeners']
         );
     }
 
