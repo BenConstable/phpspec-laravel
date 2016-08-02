@@ -1,13 +1,27 @@
 # phpspec Laravel Extension
 
+> [phpspec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
+  applications.
+  
 [![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
 [![Latest Stable Version](https://poser.pugx.org/benconstable/phpspec-laravel/v/stable.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 [![Total Downloads](https://poser.pugx.org/benconstable/phpspec-laravel/downloads.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 [![License](https://poser.pugx.org/benconstable/phpspec-laravel/license.svg)](https://packagist.org/packages/benconstable/phpspec-laravel)
 
-[phpspec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
-applications.
+## Versions
 
+Depending on the version of Laravel and/or Phpspec you're using, you'll want to make sure that
+you're using the version of this package that's right for you. Use the table below to pick
+the right one.
+
+**Note:** Phpspec `v3.0` support is currently in development on the `master` branch.
+
+| Package Version | Laravel Version | Phpspec Version |
+| --------------- | --------------- | --------------- |
+| `^v1.2`         | `^v4.1`         | `^v2.0`         |
+| `^v2.0`         | `^v5.0`         | `^v2.1`         |
+| `^v3.0@dev`     | `^v5.0`         | `^v3.0`         |
+ 
 ## Installation
 
 Add this to your `composer.json`:
@@ -15,7 +29,7 @@ Add this to your `composer.json`:
 ```json
 {
     "require-dev": {
-        "benconstable/phpspec-laravel": "~2.0"
+        "benconstable/phpspec-laravel": "~3.0@dev"
     }
 }
 ```
@@ -27,12 +41,8 @@ extensions:
     - PhpSpec\Laravel\Extension\LaravelExtension
 ```
 
-You can take a look at [`example.phpspec.yml`](https://github.com/BenConstable/phpspec-laravel/blob/master/example.phpspec.yml) for a good set of sensible phpspec defaults for a Laravel project.
-
-#### Laravel 4
-
-phpspec-laravel development is now targeted at Laravel 5. For use with Laravel
-4, please install the latest `1.x` release.
+You can take a look at [`example.phpspec.yml`](https://github.com/BenConstable/phpspec-laravel/blob/master/example.phpspec.yml)
+for a good set of sensible phpspec defaults for a Laravel project.
 
 ## Why this extension?
 
@@ -59,8 +69,9 @@ encourage best practices these database commands have been removed. You should u
 PHPUnit or similar to run integration tests on your database.
 
 Unfortunately, with Laravel 5 the previous functionality that made
-[testing Eloquent models](https://github.com/BenConstable/phpspec-laravel/tree/laravel-4#testing-eloquent-models) easier and provided a [custom matcher for testing relationships](https://github.com/BenConstable/phpspec-laravel/tree/laravel-4#custom-matchers) has become much more difficult to implement
-without hitting the database. I've had to remove it for now, but I will try to
+[testing Eloquent models](https://github.com/BenConstable/phpspec-laravel/tree/laravel-4#testing-eloquent-models)
+easier and provided a [custom matcher for testing relationships](https://github.com/BenConstable/phpspec-laravel/tree/laravel-4#custom-matchers)
+has become much more difficult to implement without hitting the database. I've had to remove it for now, but I will try to
 add it in again at a later date. Regardless, you should try to keep business
 logic out of models and test your database layer using integration tests.
 
