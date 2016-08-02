@@ -3,7 +3,7 @@
 > [phpspec](http://www.phpspec.net/) Extension for testing [Laravel](http://laravel.com/)
   applications.
   
-[![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.png?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
+[![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.svg?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
 [![Latest Stable Version](https://poser.pugx.org/benconstable/phpspec-laravel/v/stable.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 [![Total Downloads](https://poser.pugx.org/benconstable/phpspec-laravel/downloads.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 [![License](https://poser.pugx.org/benconstable/phpspec-laravel/license.svg)](https://packagist.org/packages/benconstable/phpspec-laravel)
