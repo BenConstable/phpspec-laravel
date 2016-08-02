@@ -6,9 +6,7 @@ suites:
         spec_path: tests
 
 extensions:
-    - PhpSpec\Laravel\Extension\LaravelExtension
-
-laravel_extension:
-    testing_environment: 'testing'
+    PhpSpec\Laravel\Extension\LaravelExtension:
+        testing_environment: "testing"
 
 formatter.name: pretty
