@@ -58,23 +58,6 @@ This extension **is not** a swap-in replacement for Laravel's built in PHPUnit s
 If you'd like integration and/or functional tests, please use that,
 [Behat](http://behat.org/), or [Codeception](http://codeception.com/).
 
-#### A note on the database and Eloquent
-
-This extension previously provided the ability to migrate and seed the database,
-and also provided functionality to make testing Eloquent models easier.
-
-With version 2.0 (for Laravel 5), the database functionality has been removed.
-Testing the database layer is beyond the scope of phpspec, and so in order to
-encourage best practices these database commands have been removed. You should use
-PHPUnit or similar to run integration tests on your database.
-
-Unfortunately, with Laravel 5 the previous functionality that made
-[testing Eloquent models](https://github.com/BenConstable/phpspec-laravel/tree/laravel-4#testing-eloquent-models)
-easier and provided a [custom matcher for testing relationships](https://github.com/BenConstable/phpspec-laravel/tree/laravel-4#custom-matchers)
-has become much more difficult to implement without hitting the database. I've had to remove it for now, but I will try to
-add it in again at a later date. Regardless, you should try to keep business
-logic out of models and test your database layer using integration tests.
-
 ## Configuration
 
 ### Testing environment
