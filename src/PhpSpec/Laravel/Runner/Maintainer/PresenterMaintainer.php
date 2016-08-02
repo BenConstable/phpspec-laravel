@@ -52,7 +52,7 @@ class PresenterMaintainer implements Maintainer
         CollaboratorManager $collaborators
     ) {
         $reflection = $example->getSpecification()->getClassReflection()->getMethod('setPresenter');
-        $reflection->invokeArgs($context, array($this->presenter));
+        $reflection->invokeArgs($context, [$this->presenter]);
     }
 
     /**

@@ -55,7 +55,7 @@ class LaravelMaintainer implements Maintainer
         CollaboratorManager $collaborators
     ) {
         $reflection = $example->getSpecification()->getClassReflection()->getMethod('setLaravel');
-        $reflection->invokeArgs($context, array($this->laravel));
+        $reflection->invokeArgs($context, [$this->laravel]);
     }
 
     /**
