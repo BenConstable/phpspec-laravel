@@ -1,35 +1,35 @@
 {
-    "name": "benconstable/phpspec-laravel",
-    "description": "Test your Laravel applications with PhpSpec",
-    "keywords": ["laravel", "phpspec", "testing", "test"],
-    "homepage": "http://github.com/BenConstable/phpspec-laravel",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Ben Constable",
-            "email": "ben@benconstable.co.uk",
-            "homepage": "https://benconstable.co.uk"
-        }
-    ],
-    "license": "MIT",
-    "require": {
-        "php": "^5.6 || ^7.0",
-        "phpspec/phpspec": "~3.0",
-        "laravel/framework": "~5.0"
-    },
-    "autoload": {
-        "psr-0": {
-            "PhpSpec": "src/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-laravel-4": "1.x-dev",
-            "dev-2.0": "2.x-dev",
-            "dev-master": "3.x-dev"
-        }
-    },
-    "config": {
-        "bin-dir": "bin"
+  "name": "benconstable/phpspec-laravel",
+  "description": "Test your Laravel applications with PhpSpec",
+  "keywords": ["laravel", "phpspec", "testing", "test"],
+  "homepage": "http://github.com/BenConstable/phpspec-laravel",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Ben Constable",
+      "email": "ben@benconstable.co.uk",
+      "homepage": "https://benconstable.co.uk"
     }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^5.6 || ^7.0",
+    "phpspec/phpspec": "~3.0",
+    "laravel/framework": "~5.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "PhpSpec": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-laravel-4": "1.x-dev",
+      "dev-2.0": "2.x-dev",
+      "dev-master": "3.x-dev"
+    }
+  },
+  "config": {
+    "bin-dir": "bin"
+  }
 }

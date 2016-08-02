@@ -38,7 +38,7 @@ then add this to your `phpspec.yml`:
 
 ```yaml
 extensions:
-    PhpSpec\Laravel\Extension\LaravelExtension: ~
+  PhpSpec\Laravel\Extension\LaravelExtension: ~
 ```
 
 You can take a look at [`example.phpspec.yml`](https://github.com/BenConstable/phpspec-laravel/blob/master/example.phpspec.yml)
@@ -84,8 +84,8 @@ can change this to production (or whatever you like) by setting:
 
 ```yaml
 extensions:
-    PhpSpec\Laravel\Extension\LaravelExtension:
-        testing_environment: "production"
+  PhpSpec\Laravel\Extension\LaravelExtension:
+    testing_environment: "production"
 ```
 
 in your `phpspec.yml`.
@@ -101,8 +101,8 @@ installation, like so:
 
 ```yaml
 extensions:
-    PhpSpec\Laravel\Extension\LaravelExtension:
-        framework_path: "/non/standard/laravel/setup/app.php"
+  PhpSpec\Laravel\Extension\LaravelExtension:
+    framework_path: "/non/standard/laravel/setup/app.php"
 ```
 
 You can specify either an absolute path (use leading slash), or a path relative
