@@ -1,83 +1,53 @@
 <?php
+
 namespace PhpSpec\Laravel\Extension;
 
+use PhpSpec\Extension;
 use InvalidArgumentException;
 use PhpSpec\ServiceContainer;
-use PhpSpec\Extension as ExtensionInterface;
+use PhpSpec\Laravel\Util\Laravel;
 use PhpSpec\Laravel\Listener\LaravelListener;
 use PhpSpec\Laravel\Runner\Maintainer\LaravelMaintainer;
 use PhpSpec\Laravel\Runner\Maintainer\PresenterMaintainer;
-use PhpSpec\Laravel\Util\Laravel;
 
 /**
  * Setup the Laravel extension.
  *
  * Bootstraps Laravel and sets up some objects in the Container.
  */
-class LaravelExtension implements ExtensionInterface
+class LaravelExtension implements Extension
 {
     /**
      * {@inheritdoc}
      */
     public function load(ServiceContainer $container, array $params)
     {
-        // Create & store Laravel wrapper
+        $container->define('laravel', function () use ($params) {
+            return new Laravel(
+                isset($params['testing_environment']) ? $params['testing_environment'] : null,
+                $this->getBootstrapPath(isset($params['framework_path']) ? $params['framework_path'] : null)
+            );
+        });
 
-        $container->define(
-            'laravel',
-            function ($c) use ($params) {
-                $laravel = new Laravel(
-                    isset($params['testing_environment']) ? $params['testing_environment'] : null,
-                    $this->getBootstrapPath(
-                        isset($params['framework_path']) ? $params['framework_path'] : null
-                    )
-                );
+        $container->define('runner.maintainers.laravel', function (ServiceContainer $c) {
+            return new LaravelMaintainer($c->get('laravel'));
+        }, ['runner.maintainers']);
 
-                return $laravel;
-            }
-        );
+        $container->define('runner.maintainers.presenter', function (ServiceContainer $c) {
+            return new PresenterMaintainer($c->get('formatter.presenter'));
+        }, ['runner.maintainers']);
 
-        // Bootstrap maintainer to bind Laravel wrapper to specs
-
-        $container->define(
-            'runner.maintainers.laravel',
-            function ($c) {
-                return new LaravelMaintainer(
-                    $c->get('laravel')
-                );
-            },
-            ['runner.maintainers']
-        );
-
-        // Bootstrap maintainer to bind app Presenter to specs, so it
-        // can be passed to custom matchers
-
-        $container->define(
-            'runner.maintainers.presenter',
-            function ($c) {
-                return new PresenterMaintainer(
-                    $c->get('formatter.presenter')
-                );
-            },
-            ['runner.maintainers']
-        );
-
-        // Bootstrap listener to setup Laravel application for specs
-
-        $container->define(
-            'event_dispatcher.listeners.laravel',
-            function ($c) {
-                return new LaravelListener($c->get('laravel'));
-            },
-            ['event_dispatcher.listeners']
-        );
+        $container->define('event_dispatcher.listeners.laravel', function (ServiceContainer $c) {
+            return new LaravelListener($c->get('laravel'));
+        }, ['event_dispatcher.listeners']);
     }
 
     /**
      * Get path to bootstrap file.
      *
-     * @param  null|string $path Optional bootstrap file path
-     * @return null|string       Bootstrap file path
+     * @param null|string $path Optional bootstrap file path
+     * @return null|string Bootstrap file path
+     * @throws \InvalidArgumentException
      */
     private function getBootstrapPath($path = null)
     {
@@ -97,7 +67,7 @@ class LaravelExtension implements ExtensionInterface
     /**
      * Check if the given path is absolute.
      *
-     * @param  $path   Path to check
+     * @param string $path Path to check
      * @return boolean True if absolute, false if not
      */
     private function isAbsolutePath($path)

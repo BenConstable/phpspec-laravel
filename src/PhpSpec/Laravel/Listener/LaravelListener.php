@@ -1,9 +1,10 @@
 <?php
+
 namespace PhpSpec\Laravel\Listener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use PhpSpec\Event\SpecificationEvent;
 use PhpSpec\Laravel\Util\Laravel;
+use PhpSpec\Event\SpecificationEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * This listener is used to setup the Laravel application for each spec.
@@ -22,8 +23,7 @@ class LaravelListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param  \PhpSpec\Laravel\Util\Laravel $laravel
-     * @return void
+     * @param \PhpSpec\Laravel\Util\Laravel $laravel
      */
     public function __construct(Laravel $laravel)
     {
@@ -35,22 +35,20 @@ class LaravelListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            'beforeSpecification' => array('beforeSpecification', 1)
-        );
+        return [
+            'beforeSpecification' => ['beforeSpecification', 1]
+        ];
     }
 
     /**
-     * Run the `beforeSpecification` hook.
+     * Run the 'beforeSpecification' hook.
      *
-     * @param  \PhpSpec\Event\SpecificationEvent $event
+     * @param \PhpSpec\Event\SpecificationEvent $event
      * @return void
      */
     public function beforeSpecification(SpecificationEvent $event)
     {
-        $spec = $event->getSpecification();
-
-        if ($spec->getClassReflection()->hasMethod('setLaravel')) {
+        if ($event->getSpecification()->getClassReflection()->hasMethod('setLaravel')) {
             $this->laravel->refreshApplication();
         }
     }

@@ -1,17 +1,18 @@
 <?php
+
 namespace PhpSpec\Laravel\Runner\Maintainer;
 
-use PhpSpec\Formatter\Presenter\Presenter as PresenterInterface;
+use PhpSpec\Specification;
+use PhpSpec\Runner\MatcherManager;
 use PhpSpec\Loader\Node\ExampleNode;
 use PhpSpec\Runner\CollaboratorManager;
-use PhpSpec\Runner\MatcherManager;
-use PhpSpec\Runner\Maintainer\Maintainer as MaintainerInterface;
-use PhpSpec\Specification as SpecificationInterface;
+use PhpSpec\Runner\Maintainer\Maintainer;
+use PhpSpec\Formatter\Presenter\Presenter;
 
 /**
  * This maintainer is used to bind the app Presenter to behaviours.
  */
-class PresenterMaintainer implements MaintainerInterface
+class PresenterMaintainer implements Maintainer
 {
     /**
      * @var \PhpSpec\Formatter\Presenter\Presenter
@@ -21,10 +22,9 @@ class PresenterMaintainer implements MaintainerInterface
     /**
      * Constructor.
      *
-     * @param  \PhpSpec\Formatter\Presenter\Presenter $presenter
-     * @return void
+     * @param \PhpSpec\Formatter\Presenter\Presenter $presenter
      */
-    public function __construct(PresenterInterface $presenter)
+    public function __construct(Presenter $presenter)
     {
         $this->presenter = $presenter;
     }
@@ -34,39 +34,36 @@ class PresenterMaintainer implements MaintainerInterface
      *
      * Will check for the `setPresenter` method.
      *
-     * @param  \PhpSpec\Loader\Node\ExampleNode $example
+     * @param \PhpSpec\Loader\Node\ExampleNode $example
      * @return boolean
      */
     public function supports(ExampleNode $example)
     {
-        return
-            $example
-                ->getSpecification()
-                ->getClassReflection()
-                ->hasMethod('setPresenter');
+        return $example->getSpecification()->getClassReflection()->hasMethod('setPresenter');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function prepare(ExampleNode $example, SpecificationInterface $context,
-                            MatcherManager $matchers, CollaboratorManager $collaborators)
-    {
-        $reflection =
-            $example
-                ->getSpecification()
-                ->getClassReflection()
-                ->getMethod('setPresenter');
-
+    public function prepare(
+        ExampleNode $example,
+        Specification $context,
+        MatcherManager $matchers,
+        CollaboratorManager $collaborators
+    ) {
+        $reflection = $example->getSpecification()->getClassReflection()->getMethod('setPresenter');
         $reflection->invokeArgs($context, array($this->presenter));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function teardown(ExampleNode $example, SpecificationInterface $context,
-                             MatcherManager $matchers, CollaboratorManager $collaborators)
-    {
+    public function teardown(
+        ExampleNode $example,
+        Specification $context,
+        MatcherManager $matchers,
+        CollaboratorManager $collaborators
+    ) {
     }
 
     /**

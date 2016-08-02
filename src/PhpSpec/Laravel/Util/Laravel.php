@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpec\Laravel\Util;
 
 use Carbon\Carbon;
@@ -33,24 +34,19 @@ class Laravel
     /**
      * Constructor.
      *
-     * @param  string $env     Laravel testing environment. 'testing' by
-     *                         default
-     * @param  string $appPath Path to the Laravel bootstrap dir
-     * @return void
+     * @param string $env Laravel testing environment. 'testing' by default
+     * @param string $appPath Path to the Laravel bootstrap dir
      */
     public function __construct($env, $appPath)
     {
-        $this->env     = $env ?: 'testing';
+        $this->env = $env ?: 'testing';
         $this->appPath = $appPath;
     }
 
     /**
      * Refresh the application instance.
      *
-     * @param \Illuminate\Foundation\Application $app Optionally provide your own unbooted
-     *                                                Laravel Application instance. This
-     *                                                parameter can largely be ignored and
-     *                                                is used just for unit testing
+     * @param \Illuminate\Foundation\Application|null $app Optionally provide your own unbooted Laravel Application instance. This parameter can largely be ignored and is used just for unit testing
      * @return void
      */
     public function refreshApplication($app = null)
@@ -69,6 +65,8 @@ class Laravel
     }
 
     /**
+     * Get the root Laravel application path.
+     *
      * @return string Root laravel app path
      */
     public function getAppPath()
@@ -87,7 +85,7 @@ class Laravel
 
         $app = require $this->appPath;
 
-        $app->bootstrapWith(array(
+        $app->bootstrapWith([
             'Illuminate\Foundation\Bootstrap\DetectEnvironment',
             'Illuminate\Foundation\Bootstrap\LoadConfiguration',
             'Illuminate\Foundation\Bootstrap\ConfigureLogging',
@@ -96,7 +94,7 @@ class Laravel
             'Illuminate\Foundation\Bootstrap\SetRequestForConsole',
             'Illuminate\Foundation\Bootstrap\RegisterProviders',
             'Illuminate\Foundation\Bootstrap\BootProviders'
-        ));
+        ]);
 
         Carbon::setTestNow(Carbon::now());
 

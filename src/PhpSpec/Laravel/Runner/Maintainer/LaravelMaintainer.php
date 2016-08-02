@@ -1,18 +1,19 @@
 <?php
+
 namespace PhpSpec\Laravel\Runner\Maintainer;
 
+use PhpSpec\Specification;
+use PhpSpec\Laravel\Util\Laravel;
+use PhpSpec\Runner\MatcherManager;
 use PhpSpec\Loader\Node\ExampleNode;
 use PhpSpec\Runner\CollaboratorManager;
-use PhpSpec\Runner\MatcherManager;
-use PhpSpec\Runner\Maintainer\Maintainer as MaintainerInterface;
-use PhpSpec\Specification as SpecificationInterface;
-use PhpSpec\Laravel\Util\Laravel;
+use PhpSpec\Runner\Maintainer\Maintainer;
 
 /**
  * This maintainer is used to bind the Laravel wrapper to nodes that implement
  * the `setLaravel` method.
  */
-class LaravelMaintainer implements MaintainerInterface
+class LaravelMaintainer implements Maintainer
 {
     /**
      * Laravel wrapper.
@@ -24,8 +25,7 @@ class LaravelMaintainer implements MaintainerInterface
     /**
      * Constructor.
      *
-     * @param  \PhpSpec\Laravel\Util\Laravel $laravel
-     * @return void
+     * @param \PhpSpec\Laravel\Util\Laravel $laravel
      */
     public function __construct(Laravel $laravel)
     {
@@ -35,41 +35,38 @@ class LaravelMaintainer implements MaintainerInterface
     /**
      * Check if this maintainer applies to the given node.
      *
-     * Will check for the `setLaravel` method.
+     * Will check for the 'setLaravel' method.
      *
-     * @param  \PhpSpec\Loader\Node\ExampleNode $example
+     * @param \PhpSpec\Loader\Node\ExampleNode $example
      * @return boolean
      */
     public function supports(ExampleNode $example)
     {
-        return
-            $example
-                ->getSpecification()
-                ->getClassReflection()
-                ->hasMethod('setLaravel');
+        return $example->getSpecification()->getClassReflection()->hasMethod('setLaravel');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function prepare(ExampleNode $example, SpecificationInterface $context,
-                            MatcherManager $matchers, CollaboratorManager $collaborators)
-    {
-        $reflection =
-            $example
-                ->getSpecification()
-                ->getClassReflection()
-                ->getMethod('setLaravel');
-
+    public function prepare(
+        ExampleNode $example,
+        Specification $context,
+        MatcherManager $matchers,
+        CollaboratorManager $collaborators
+    ) {
+        $reflection = $example->getSpecification()->getClassReflection()->getMethod('setLaravel');
         $reflection->invokeArgs($context, array($this->laravel));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function teardown(ExampleNode $example, SpecificationInterface $context,
-                             MatcherManager $matchers, CollaboratorManager $collaborators)
-    {
+    public function teardown(
+        ExampleNode $example,
+        Specification $context,
+        MatcherManager $matchers,
+        CollaboratorManager $collaborators
+    ) {
     }
 
     /**
