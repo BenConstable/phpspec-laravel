@@ -2,7 +2,7 @@
 
 > [phpspec](http://www.phpspec.net/) extension for testing [Laravel](http://laravel.com/)
   applications.
-  
+
 [![Build Status](https://travis-ci.org/BenConstable/phpspec-laravel.svg?branch=master)](https://travis-ci.org/BenConstable/phpspec-laravel)
 [![Latest Stable Version](https://poser.pugx.org/benconstable/phpspec-laravel/v/stable.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
 [![Total Downloads](https://poser.pugx.org/benconstable/phpspec-laravel/downloads.png)](https://packagist.org/packages/benconstable/phpspec-laravel)
@@ -14,14 +14,12 @@ Depending on the version of Laravel and/or Phpspec you're using, you'll want to 
 you're using the version of this package that's right for you. Use the table below to pick
 the right one.
 
-**Note:** Phpspec `v3.0` support is currently in development on the `master` branch.
-
 | Package Version | Laravel Version | Phpspec Version |
 | --------------- | --------------- | --------------- |
 | `^v1.2`         | `^v4.1`         | `^v2.0`         |
 | `^v2.0`         | `^v5.0`         | `^v2.1`         |
-| `^v3.0@dev`     | `^v5.0`         | `^v3.0`         |
- 
+| `^v3.0`         | `^v5.0`         | `^v3.0`         |
+
 ## Installation
 
 Add this to your `composer.json`:
@@ -29,7 +27,7 @@ Add this to your `composer.json`:
 ```json
 {
     "require-dev": {
-        "benconstable/phpspec-laravel": "~3.0@dev"
+        "benconstable/phpspec-laravel": "~3.0"
     }
 }
 ```
