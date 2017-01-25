@@ -86,7 +86,7 @@ class Laravel
         $app = require $this->appPath;
 
         $app->bootstrapWith([
-            'Illuminate\Foundation\Bootstrap\DetectEnvironment',
+            'Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables',
             'Illuminate\Foundation\Bootstrap\LoadConfiguration',
             'Illuminate\Foundation\Bootstrap\ConfigureLogging',
             'Illuminate\Foundation\Bootstrap\HandleExceptions',
