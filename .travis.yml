@@ -21,4 +21,4 @@ install:
   - composer update --prefer-source --no-interaction
 
 script:
-  - ./vendor/bin/phpspec run
+  - ./bin/phpspec run
