@@ -4,6 +4,7 @@ namespace PhpSpec\Laravel\Util;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Application;
+use Illuminate\Contracts\Console\Kernel;
 
 /**
  * This class provides an entry point into Laravel for PhpSpec.
@@ -85,16 +86,7 @@ class Laravel
 
         $app = require $this->appPath;
 
-        $app->bootstrapWith([
-            'Illuminate\Foundation\Bootstrap\DetectEnvironment',
-            'Illuminate\Foundation\Bootstrap\LoadConfiguration',
-            'Illuminate\Foundation\Bootstrap\ConfigureLogging',
-            'Illuminate\Foundation\Bootstrap\HandleExceptions',
-            'Illuminate\Foundation\Bootstrap\RegisterFacades',
-            'Illuminate\Foundation\Bootstrap\SetRequestForConsole',
-            'Illuminate\Foundation\Bootstrap\RegisterProviders',
-            'Illuminate\Foundation\Bootstrap\BootProviders'
-        ]);
+        $app->make(Kernel::class)->bootstrap();
 
         Carbon::setTestNow(Carbon::now());
 
