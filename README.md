@@ -22,14 +22,10 @@ the right one.
 
 ## Installation
 
-Add this to your `composer.json`:
+Install the package with composer:
 
-```json
-{
-    "require-dev": {
-        "benconstable/phpspec-laravel": "~3.0"
-    }
-}
+```
+composer require --dev "benconstable/phpspec-laravel:~3.0"
 ```
 
 then add this to your `phpspec.yml`:
@@ -48,9 +44,7 @@ This extension provides you with a bootstrapped Laravel environment when writing
 your phpspec tests.
 
 It allows you to make use of some of the nice features that Laravel provides, like
-[class aliases](https://github.com/laravel/laravel/blob/master/config/app.php#L161)
-and [helper functions](http://laravel.com/docs/5.0/helpers), without being
-hindered by your testing framework.
+class aliases and helper functions, without being hindered by your testing framework.
 
 This extension **is not** a swap-in replacement for Laravel's built in PHPUnit setup.
 If you'd like integration and/or functional tests, please use that,
@@ -99,7 +93,7 @@ need to do anything differently. Just write your phpspec tests as normal!
 ### Testing with Laravel
 
 If you want to take advantage of Laravel's aliases, or use some of its
-[helper functions](http://laravel.com/docs/5.0/helpers), extend your specs
+[helper functions](https://laravel.com/docs/5.4/helpers), extend your specs
 from `PhpSpec\Laravel\LaravelObjectBehavior`. This will prevent errors when
 testing.
 
