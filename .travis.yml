@@ -14,8 +14,8 @@ env:
   - LARAVEL_VERSION=5.4.*
 
 install:
-  - composer require "phpspec/phpspec:~3.0"
-  - composer require "laravel/framework:${LARAVEL_VERSION}"
+  - composer require --no-update "phpspec/phpspec:~3.0"
+  - composer require --no-update "laravel/framework:${LARAVEL_VERSION}"
 
 script:
   - ./vendor/bin/phpspec run
