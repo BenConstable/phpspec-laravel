@@ -3,10 +3,19 @@ language: php
 php:
   - 5.6
   - 7.0
+  - 7.1
   - hhvm
 
+env:
+  - LARAVEL_VERSION=5.0.*
+  - LARAVEL_VERSION=5.1.*
+  - LARAVEL_VERSION=5.2.*
+  - LARAVEL_VERSION=5.3.*
+  - LARAVEL_VERSION=5.4.*
+
 install:
-    - composer install
+  - composer require "phpspec/phpspec:~3.0"
+  - composer require "laravel/framework:${LARAVEL_VERSION}"
 
 script:
-    - ./bin/phpspec run
+  - ./vendor/bin/phpspec run
