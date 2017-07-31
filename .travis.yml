@@ -4,22 +4,15 @@ php:
   - 7.0
   - 7.1
 
-env:
-  - LARAVEL_VERSION=5.1.*
-  - LARAVEL_VERSION=5.2.*
-  - LARAVEL_VERSION=5.3.*
-  - LARAVEL_VERSION=5.4.*
-
 cache:
   directories:
     - $HOME/.composer/cache
 
 before_install:
   - phpenv config-rm xdebug.ini
-  - travis_retry composer require --no-update "laravel/framework:${LARAVEL_VERSION}"
 
 install:
-  - travis_retry composer update --prefer-stable --no-interaction --no-suggest
+  - composer update
 
 script:
   - ./bin/phpspec run

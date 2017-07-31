@@ -15,7 +15,7 @@
   "require": {
     "php": "^7.0",
     "phpspec/phpspec": "^4.0",
-    "laravel/framework": "~5.1"
+    "laravel/framework": "^5.4"
   },
   "autoload": {
     "psr-0": {
