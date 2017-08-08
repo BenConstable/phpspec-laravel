@@ -33,15 +33,24 @@ class Laravel
     protected $appPath;
 
     /**
+     * Path to the custom .env file.
+     *
+     * @var string
+     */
+    protected $envFile;
+
+    /**
      * Constructor.
      *
      * @param string $env Laravel testing environment. 'testing' by default
      * @param string $appPath Path to the Laravel bootstrap dir
+     * @param string $envPath Path to the custom .env file
      */
-    public function __construct($env, $appPath)
+    public function __construct($env, $appPath, $envPath)
     {
         $this->env = $env ?: 'testing';
         $this->appPath = $appPath;
+        $this->envFile = $envPath;
     }
 
     /**
@@ -75,6 +84,11 @@ class Laravel
         return $this->appPath;
     }
 
+    public function getEnvFile()
+    {
+        return $this->envFile;
+    }
+
     /**
      * Creates a Laravel application.
      *
@@ -82,11 +96,15 @@ class Laravel
      */
     protected function createApplication()
     {
-        putenv('APP_ENV=' . $this->getEnv());
-
         $app = require $this->appPath;
 
-        $app->make(Kernel::class)->bootstrap();
+        if ($this->getEnvFile()) {
+            $app->loadEnvironmentFrom($this->getEnvFile());
+        } else {
+            putenv('APP_ENV=' . $this->getEnv());
+        }
+
+        $app->make(Kernel::class)->bootstrap();;
 
         Carbon::setTestNow(Carbon::now());
 
