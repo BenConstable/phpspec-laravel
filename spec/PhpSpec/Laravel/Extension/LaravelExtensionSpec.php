@@ -54,7 +54,7 @@ class LaravelExtensionSpec extends ObjectBehavior
         $this->load($container, []);
     }
 
-    public function getMatchers()
+    public function getMatchers():array
     {
         return [
             'endWith' => function($subject, $value) {
