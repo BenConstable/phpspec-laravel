@@ -37,7 +37,7 @@ class PresenterMaintainer implements Maintainer
      * @param \PhpSpec\Loader\Node\ExampleNode $example
      * @return boolean
      */
-    public function supports(ExampleNode $example)
+    public function supports(ExampleNode $example):bool
     {
         return $example->getSpecification()->getClassReflection()->hasMethod('setPresenter');
     }
@@ -71,7 +71,7 @@ class PresenterMaintainer implements Maintainer
      *
      * @return int
      */
-    public function getPriority()
+    public function getPriority():int
     {
         return 1000;
     }

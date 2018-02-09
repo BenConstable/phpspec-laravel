@@ -40,7 +40,7 @@ class LaravelMaintainer implements Maintainer
      * @param \PhpSpec\Loader\Node\ExampleNode $example
      * @return boolean
      */
-    public function supports(ExampleNode $example)
+    public function supports(ExampleNode $example):bool
     {
         return $example->getSpecification()->getClassReflection()->hasMethod('setLaravel');
     }
@@ -75,7 +75,7 @@ class LaravelMaintainer implements Maintainer
      *
      * @return int
      */
-    public function getPriority()
+    public function getPriority():int
     {
         return 1000;
     }
