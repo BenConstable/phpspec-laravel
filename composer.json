@@ -26,7 +26,8 @@
     "branch-alias": {
       "dev-laravel-4": "1.x-dev",
       "dev-2.0": "2.x-dev",
-      "dev-master": "3.x-dev"
+      "dev-3.0": "3.x-dev",
+      "dev-master": "4.x-dev"
     }
   },
   "config": {

@@ -14,18 +14,19 @@ Depending on the version of Laravel and/or Phpspec you're using, you'll want to 
 you're using the version of this package that's right for you. Use the table below to pick
 the right one.
 
-| Package Version | Laravel Version | Phpspec Version |
-| --------------- | --------------- | --------------- |
-| `^v1.2`         | `^v4.1`         | `^v2.0`         |
-| `^v2.0`         | `v5.0-v5.3`     | `^v2.1`         |
-| `^v3.0`         | `^v5.1`         | `^v3.0`         |
+| PHP Version | Package Version | Laravel Version | Phpspec Version |
+| ----------- | --------------- | --------------- | --------------- |
+| `>=5.3.0`   | `^v1.2`         | `^v4.1`         | `^v2.0`         |
+| `>=5.4.0`   | `^v2.0`         | `v5.0-v5.3`     | `^v2.1`         |
+| `>=5.6.0`   | `^v3.0`         | `^v5.1-v5.4`    | `^v3.0`         |
+| `>=7.0.0`   | `^v4.0`         | `^v5.4`         | `^v4.0`         |
 
 ## Installation
 
 Install the package with composer:
 
 ```
-composer require --dev "benconstable/phpspec-laravel:~3.0"
+composer require --dev "benconstable/phpspec-laravel:~4.0"
 ```
 
 then add this to your `phpspec.yml`:
@@ -227,6 +228,6 @@ MIT &copy; Ben Constable. See [LICENSE](https://github.com/BenConstable/phpspec-
 Thanks to...
 
 * [@obrignoni](https://github.com/obrignoni) for their great work in getting this extension working with Laravel 5
-* [@Sam-Burns](https://github.com/Sam-Burns) for their great work in getting this extension working with Phpspec v3
+* [@Sam-Burns](https://github.com/Sam-Burns) for their great work in getting this extension working with Phpspec v3 and v4
 * All of the [other contributors](https://github.com/BenConstable/phpspec-laravel/graphs/contributors) and to everyone that's
 reported issues and bugs with the project
