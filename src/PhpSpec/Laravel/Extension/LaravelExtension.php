@@ -25,7 +25,8 @@ class LaravelExtension implements Extension
         $container->define('laravel', function () use ($params) {
             return new Laravel(
                 isset($params['testing_environment']) ? $params['testing_environment'] : null,
-                $this->getBootstrapPath(isset($params['framework_path']) ? $params['framework_path'] : null)
+                $this->getBootstrapPath(isset($params['framework_path']) ? $params['framework_path'] : null),
+                isset($params['testing_environment_file']) ? $params['testing_environment_file'] : null
             );
         });
 

@@ -65,6 +65,19 @@ extensions:
 
 in your `phpspec.yml`.
 
+### Environment file
+
+You may also want to bootstrap laravel with a custom `.env` file. You can do this by setting:
+```yaml
+extensions:
+  PhpSpec\Laravel\Extension\LaravelExtension:
+    testing_environment_file: ".phpspec.env"
+```
+
+in your `phpspec.yml`.
+
+> Please note that `APP_ENV` set in your custom `.env` file will override the `testing_environment` setting.
+
 ### App bootstrap path
 
 By default, the extension will bootstrap your app by looking for `bootstrap/app.php`

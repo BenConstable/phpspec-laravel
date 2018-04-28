@@ -8,5 +8,7 @@ suites:
 extensions:
   PhpSpec\Laravel\Extension\LaravelExtension:
     testing_environment: "testing"
+    # OR
+    testing_environment_file: ".phpspec.env"
 
 formatter.name: pretty
