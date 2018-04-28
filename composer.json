@@ -18,8 +18,8 @@
     "laravel/framework": "^5.4"
   },
   "autoload": {
-    "psr-0": {
-      "PhpSpec": "src/"
+    "psr-4": {
+      "PhpSpec\\Laravel\\": "src/"
     }
   },
   "extra": {
