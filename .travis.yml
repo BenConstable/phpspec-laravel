@@ -4,15 +4,27 @@ php:
   - 7.0
   - 7.1
 
+env:
+  - LARAVEL_VERSION=5.4.*
+  - LARAVEL_VERSION=5.5.*
+  - LARAVEL_VERSION=5.6.*
+
+matrix:
+  exclude:
+    - php: 7.0
+      env: LARAVEL_VERSION=5.6.*
+
 cache:
   directories:
     - $HOME/.composer/cache
 
 before_install:
   - phpenv config-rm xdebug.ini
+  - composer require --no-update "phpspec/phpspec:~4.0"
+  - composer require --no-update "laravel/framework:${LARAVEL_VERSION}"
 
 install:
-  - composer update
+  - composer update --prefer-stable --no-interaction --no-suggest
 
 script:
   - ./bin/phpspec run
