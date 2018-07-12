@@ -82,6 +82,6 @@ class LaravelExtension implements Extension
      */
     private function getVendorPath()
     {
-        return realpath(__DIR__ . '/../../../../../..');
+        return realpath(__DIR__ . '/../../../..');
     }
 }
