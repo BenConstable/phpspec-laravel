@@ -53,7 +53,7 @@ class LaravelMaintainer implements Maintainer
         Specification $context,
         MatcherManager $matchers,
         CollaboratorManager $collaborators
-    ) {
+    ) : void {
         $reflection = $example->getSpecification()->getClassReflection()->getMethod('setLaravel');
         $reflection->invokeArgs($context, [$this->laravel]);
     }
@@ -66,7 +66,7 @@ class LaravelMaintainer implements Maintainer
         Specification $context,
         MatcherManager $matchers,
         CollaboratorManager $collaborators
-    ) {
+    ) : void {
     }
 
     /**

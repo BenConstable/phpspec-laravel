@@ -50,7 +50,7 @@ class PresenterMaintainer implements Maintainer
         Specification $context,
         MatcherManager $matchers,
         CollaboratorManager $collaborators
-    ) {
+    ) : void {
         $reflection = $example->getSpecification()->getClassReflection()->getMethod('setPresenter');
         $reflection->invokeArgs($context, [$this->presenter]);
     }
@@ -63,7 +63,7 @@ class PresenterMaintainer implements Maintainer
         Specification $context,
         MatcherManager $matchers,
         CollaboratorManager $collaborators
-    ) {
+    ) : void {
     }
 
     /**
